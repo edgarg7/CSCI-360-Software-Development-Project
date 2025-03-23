@@ -14,10 +14,11 @@ public class Main {
 
         while (true) {
             System.out.println("\nFlight Planning System");
-            System.out.println("1. Add Airport");
-            System.out.println("2. Add Airplane");
-            System.out.println("3. Plan a Flight");
-            System.out.println("4. Exit");
+            System.out.println("1. Airport Functions");
+            System.out.println("2. Modify Airport");
+            System.out.println("3. Add Airplane");
+            System.out.println("4. Plan a Flight");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -25,15 +26,18 @@ public class Main {
 
             switch (choice) {
             case 1:
-                addAirport(scanner, airportManager);
+                airportFunctionsMenu(scanner, airportManager); 
                 break;
             case 2:
-                addAirplane(scanner, airplaneManager);
+                airportManager.modifyAirport(scanner);
                 break;
             case 3:
-                planFlight(scanner, airportManager, airplaneManager);
+                addAirplane(scanner, airplaneManager);
                 break;
             case 4:
+                planFlight(scanner, airportManager, airplaneManager);
+                break;
+            case 5:
                 System.out.println("Exiting program...");
                 return;
             default:
@@ -43,25 +47,44 @@ public class Main {
     }
 
     /**
-     * This will add a new airport using user input.
+     * This will display the Airport Functions menu.
      */
-    private static void addAirport(Scanner scanner, AirportManager airportManager) {
-        System.out.print("Enter Airport Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter ICAO ID: ");
-        String ICAOID = scanner.nextLine();
-        System.out.print("Enter Latitude: ");
-        double latitude = scanner.nextDouble();
-        System.out.print("Enter Longitude: ");
-        double longitude = scanner.nextDouble();
-        scanner.nextLine();
-        System.out.print("Enter Fuel Type: ");
-        String fuelType = scanner.nextLine();
-        System.out.print("Enter Radio Frequency: ");
-        String radioFrequencies = scanner.nextLine();
+    private static void airportFunctionsMenu(Scanner scanner, AirportManager airportManager) {
+        while (true) {
+            System.out.println("\nAirport Functions");
+            System.out.println("1. Add Airport");
+            System.out.println("2. Modify Airport");
+            System.out.println("3. Display Airport Information");
+            System.out.println("4. Search Airport");
+            System.out.println("5. Remove Airport");
+            System.out.println("6. Back to Main Menu");
+            System.out.print("Choose an option: ");
 
-        airportManager.addAirport(new Airport(name, ICAOID, latitude, longitude, fuelType, radioFrequencies));
-        System.out.println("Airport added successfully!");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+            case 1:
+                airportManager.addAirport(scanner);
+                break;
+            case 2:
+                airportManager.modifyAirport(scanner);
+                break;
+            case 3:
+            airportManager.displayAirport(scanner);
+                break;
+            case 4:
+                airportManager.searchAirport(scanner);
+                break;
+            case 5:
+                airportManager.removeAirport(scanner);
+                break;
+            case 6:
+                return;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
     /**
@@ -118,7 +141,5 @@ public class Main {
         Flight flight = FlightPlanning.planFlight(airports.get(startIdx), airports.get(destIdx), airplanes.get(planeIdx), airports);
         flight.displayFlightPlan();
     }
-    
-    
 }
 
