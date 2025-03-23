@@ -29,7 +29,7 @@ public class Main {
                 airportFunctionsMenu(scanner, airportManager); 
                 break;
             case 2:
-                airportManager.modifyAirportFromInput(scanner);
+                airportManager.modifyAirport(scanner);
                 break;
             case 3:
                 addAirplane(scanner, airplaneManager);
@@ -65,19 +65,19 @@ public class Main {
 
             switch (choice) {
             case 1:
-                airportManager.addAirportFromInput(scanner);
+                airportManager.addAirport(scanner);
                 break;
             case 2:
-                airportManager.modifyAirportFromInput(scanner);
+                airportManager.modifyAirport(scanner);
                 break;
             case 3:
-                displayAirportInformation(scanner, airportManager);
+            airportManager.displayAirport(scanner);
                 break;
             case 4:
                 airportManager.searchAirport(scanner);
                 break;
             case 5:
-                airportManager.removeAirportFromInput(scanner);
+                airportManager.removeAirport(scanner);
                 break;
             case 6:
                 return;
@@ -85,15 +85,6 @@ public class Main {
                 System.out.println("Invalid choice. Please try again.");
             }
         }
-    }
-
-    /**
-     * This will display airport information using user input.
-     */
-    private static void displayAirportInformation(Scanner scanner, AirportManager airportManager) {
-        System.out.print("Enter ICAO ID of the airport to display: ");
-        String ICAOID = scanner.nextLine();
-        airportManager.displayAirport(ICAOID);
     }
 
     /**
