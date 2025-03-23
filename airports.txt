@@ -1,4 +1,4 @@
-// Airport Name, ICAO, Latitude, Longitude, Fuel Type, Frequency
+Airport Name, ICAO, Latitude, Longitude, Fuel Type, Frequency
 Hartsfield-Jackson Atlanta International,ATL,33.6407,-84.4277,AVGAS,121.5
 John F. Kennedy International,JFK,40.6413,-73.7781,JA-a,122.8
 Charlotte Douglas International,CLT,35.214,-80.9431,Jet-A,127.15

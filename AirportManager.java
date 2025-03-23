@@ -21,10 +21,113 @@ public class AirportManager {
         saveAirports();
     }
 
+    // Adds an airport using user input (This is the previous function used in Main.java but updated)
+    public void addAirportFromInput(Scanner scanner) {
+        System.out.print("Enter Airport Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter ICAO ID: ");
+        String ICAOID = scanner.nextLine();
+        System.out.print("Enter Latitude: ");
+        double latitude = scanner.nextDouble();
+        System.out.print("Enter Longitude: ");
+        double longitude = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter Fuel Type: ");
+        String fuelType = scanner.nextLine();
+        System.out.print("Enter Radio Frequency: ");
+        String radioFrequencies = scanner.nextLine();
+
+        Airport newAirport = new Airport(name, ICAOID, latitude, longitude, fuelType, radioFrequencies);
+        addAirport(newAirport);
+        System.out.println("Airport added successfully!");
+    }
+
+    // Modifies an airport using user input
+    public void modifyAirportFromInput(Scanner scanner) {
+        int start = 0;
+        int batchSize = 10;
+        boolean moreAirports = true;
+
+        while (moreAirports) {
+            for (int i = start; i < start + batchSize && i < airports.size(); i++) {
+                Airport airport = airports.get(i);
+                System.out.println((i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAOID() + ")");
+            }
+
+            System.out.print("Enter the number of the airport to modify, type 'more' to see more airports, or type 'search' to search by ICAOID: ");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("more")) {
+                if (start + batchSize >= airports.size()) {
+                    System.out.println("No more airports to display.");
+                    continue;
+                }
+                start += batchSize;
+            } else if (input.equalsIgnoreCase("search")) {
+                System.out.print("Enter ICAO ID to search: ");
+                String ICAOID = scanner.nextLine();
+                Airport airport = searchAirport(ICAOID);
+                if (airport == null) {
+                    System.out.println("Airport not found.");
+                    continue;
+                }
+                modifyAirportDetails(scanner, airport);
+                moreAirports = false; // Exit the loop after modification
+            } else {
+                try {
+                    int index = Integer.parseInt(input) - 1;
+
+                    if (index < 0 || index >= airports.size()) {
+                        System.out.println("Invalid selection.");
+                        continue;
+                    }
+
+                    Airport airport = airports.get(index);
+                    modifyAirportDetails(scanner, airport);
+                    moreAirports = false; // Exit the loop after modification
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number, 'more', or 'search'.");
+                }
+            }
+        }
+    }
+
+    // Helper method to modify airport details
+    private void modifyAirportDetails(Scanner scanner, Airport airport) {
+        System.out.print("Enter new Airport Name (current: " + airport.getAirportName() + "): ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new Latitude (current: " + airport.getLatitude() + "): ");
+        double latitude = scanner.nextDouble();
+        System.out.print("Enter new Longitude (current: " + airport.getLongitude() + "): ");
+        double longitude = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter new Fuel Type (current: " + airport.getFuelTypes() + "): ");
+        String fuelType = scanner.nextLine();
+        System.out.print("Enter new Radio Frequency (current: " + airport.getRadioFrequencies() + "): ");
+        String radioFrequencies = scanner.nextLine();
+
+        Airport updatedAirport = new Airport(name, airport.getICAOID(), latitude, longitude, fuelType, radioFrequencies);
+        modifyAirport(airport.getICAOID(), updatedAirport);
+        System.out.println("Airport modified successfully!");
+    }
+
     // Removes an airport from Airports.txt file
     public void removeAirport(String ICAOID) {
         airports.removeIf(airport -> airport.getICAOID().equals(ICAOID));
         saveAirports();
+    }
+
+    // Removes an airport using user input
+    public void removeAirportFromInput(Scanner scanner) {
+        System.out.print("Enter ICAO ID of the airport to remove: ");
+        String ICAOID = scanner.nextLine();
+        Airport airport = searchAirport(ICAOID);
+        if (airport != null) {
+            removeAirport(ICAOID);
+            System.out.println("Airport removed successfully!");
+        } else {
+            System.out.println("Airport not found.");
+        }
     }
 
     // Modifies an airport in the Airports.txt file
@@ -48,9 +151,53 @@ public class AirportManager {
         return null;
     }
 
+    // Allows the user to search for an airport by name
+    public Airport searchAirportByName(String name) {
+        for (Airport airport : airports) {
+            if (airport.getAirportName().equalsIgnoreCase(name)) {
+                return airport;
+            }
+        }
+        return null;
+    }
+
+    // Searches for an airport using user input
+    public void searchAirport(Scanner scanner) {
+        System.out.print("Search by (1) ICAO ID or (2) Airport Name: ");
+        int searchChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (searchChoice == 1) {
+            System.out.print("Enter ICAO ID of the airport to search: ");
+            String ICAOID = scanner.nextLine();
+            displayAirport(ICAOID);
+        } else if (searchChoice == 2) {
+            System.out.print("Enter Airport Name to search: ");
+            String airportName = scanner.nextLine();
+            displayAirportByName(airportName);
+        } else {
+            System.out.println("Invalid choice. Please try again.");
+        }
+    }
+
     // Displays the airport information
     public void displayAirport(String ICAOID) {
         Airport airport = searchAirport(ICAOID);
+        if (airport != null) {
+            System.out.println("\nAirport Name: " + airport.getAirportName());
+            System.out.println("ICAO ID: " + airport.getICAOID());
+            System.out.println("Latitude: " + airport.getLatitude());
+            System.out.println("Longitude: " + airport.getLongitude());
+            System.out.println("Fuel Types: " + airport.getFuelTypes());
+            System.out.println("Radio Frequencies: " + airport.getRadioFrequencies());
+        } else {
+            System.out.println("Airport not found.");
+        }
+    }
+
+    // Displays the airport information by name
+    public void displayAirportByName(String name) {
+        Airport airport = searchAirportByName(name);
         if (airport != null) {
             System.out.println("Airport Name: " + airport.getAirportName());
             System.out.println("ICAO ID: " + airport.getICAOID());
