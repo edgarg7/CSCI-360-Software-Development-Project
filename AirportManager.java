@@ -5,24 +5,29 @@ public class AirportManager {
     private List<Airport> airports;
     private static final String FILE_NAME = "airports.txt";
 
+    // Constructor for AirportManager
     public AirportManager() {
         this.airports = loadAirports();
     }
 
+    // Returns list of airports
     public List<Airport> getAirports() {
         return airports;
     }
 
+    // Adds an airport to Airports.txt file
     public void addAirport(Airport airport) {
         airports.add(airport);
         saveAirports();
     }
 
+    // Removes an airport from Airports.txt file
     public void removeAirport(String ICAOID) {
         airports.removeIf(airport -> airport.getICAOID().equals(ICAOID));
         saveAirports();
     }
 
+    // Modifies an airport in the Airports.txt file
     public void modifyAirport(String ICAOID, Airport updatedAirport) {
         for (int i = 0; i < airports.size(); i++) {
             if (airports.get(i).getICAOID().equals(ICAOID)) {
@@ -33,6 +38,7 @@ public class AirportManager {
         saveAirports();
     }
 
+    // Allows the user to search for an airport by ICAOID
     public Airport searchAirport(String ICAOID) {
         for (Airport airport : airports) {
             if (airport.getICAOID().equals(ICAOID)) {
@@ -42,6 +48,7 @@ public class AirportManager {
         return null;
     }
 
+    // Displays the airport information
     public void displayAirport(String ICAOID) {
         Airport airport = searchAirport(ICAOID);
         if (airport != null) {
@@ -56,14 +63,17 @@ public class AirportManager {
         }
     }
 
+    // Validation method for ICAOID
     public boolean validateAirport(String ICAOID) {
         return searchAirport(ICAOID) != null;
     }
 
+    // Setter for airport
     public void setAirport(String ICAOID, Airport updatedAirport) {
         modifyAirport(ICAOID, updatedAirport);
     }
 
+    // Getter for airport
     public void setFrequencies(String ICAOID, String radioFrequencies) {
         Airport airport = searchAirport(ICAOID);
         if (airport != null) {
@@ -72,11 +82,13 @@ public class AirportManager {
         }
     }
 
+    // Getter for frequencies
     public String getFrequencies(String ICAOID) {
         Airport airport = searchAirport(ICAOID);
         return airport != null ? airport.getRadioFrequencies() : null;
     }
 
+    // Loads airports from Airports.txt file
     private List<Airport> loadAirports() {
         List<Airport> airports = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -92,6 +104,7 @@ public class AirportManager {
         return airports;
     }
 
+    // Saves the airports to Airports.txt file
     private void saveAirports() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             writer.write("Airport Name, ICAO, Latitude, Longitude, Fuel Type, Frequency\n"); // Write header line
