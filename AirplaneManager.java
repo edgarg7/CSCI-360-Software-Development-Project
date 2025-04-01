@@ -5,7 +5,7 @@ import java.util.*;
  * airplane data from a file.
  */
 public class AirplaneManager {
-    private List<Airplanes> airplanes;
+    private List<Airplane> airplanes;
     private static final String FILE_NAME = "airplanes.txt";
     
     /**
@@ -19,7 +19,7 @@ public class AirplaneManager {
      * 
      * @return the list of airplanes
      */
-    public List<Airplanes> getAirplanes() { 
+    public List<Airplane> getAirplanes() { 
         return airplanes; 
     }
     
@@ -61,14 +61,14 @@ public class AirplaneManager {
     /** loads airplane data from file
      * @return list of airplanes
      */
-    private List<Airplanes> loadAirplanes(){
-    	List<Airplanes> airplanes = new ArrayList<>();
+    private List<Airplane> loadAirplanes(){
+        List<Airplane> airplanes = new ArrayList<>();
     	try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
     		String line;
     		while((line = reader.readLine()) != null) {
     			String[] data = line.split(",");
-    			airplanes.add(new Airplanes(data[0], data[1], Double.parseDouble(data[2]),
-    					Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[5])));
+                airplanes.add(new Airplane(data[0], data[1], Double.parseDouble(data[2]),
+                        Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[5])));
     		}
     	} catch(IOException e) {
     		System.out.println("No existing airplane data found.");
@@ -81,7 +81,7 @@ public class AirplaneManager {
      */
     private void saveAirplanes() {
     	try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))){
-    		for(Airplanes airplane : airplanes) {
+            for(Airplane airplane : airplanes) {
     			writer.write(airplane.getModel() + "," + airplane.getFuelType() + "," + airplane.getMaxRange() + ","
     					 + airplane.getFuelBurnRate() + "," + airplane.getFuelCapacity() + "," + airplane.getAirspeed() + "\n");
     		}

@@ -131,7 +131,7 @@ public class Main {
         int destIdx = scanner.nextInt() - 1;
 
         System.out.println("\nAvailable Airplanes:");
-        List<Airplanes> airplanes = airplaneManager.getAirplanes();
+        List<Airplane> airplanes = airplaneManager.getAirplanes();
         for (int i = 0; i < airplanes.size(); i++) {
             System.out.printf("%d. %s (%s)\n", i + 1, airplanes.get(i).getModel(), airplanes.get(i).getFuelType());
         }

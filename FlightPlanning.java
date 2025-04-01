@@ -8,7 +8,7 @@ import java.util.List;
 public class FlightPlanning {
 
     // Main method to plan the flight with enhanced refueling check
-    public static Flight planFlight(Airport start, Airport destination, Airplanes airplane, List<Airport> allAirports) {
+    public static Flight planFlight(Airport start, Airport destination, Airplane airplane, List<Airport> allAirports) {
         validateInput(start, destination, airplane, allAirports);
 
         double distance = calculateHaversineDistance(start, destination);
@@ -30,14 +30,14 @@ public class FlightPlanning {
     }
 
     // Validate inputs to ensure no null values
-    private static void validateInput(Airport start, Airport destination, Airplanes airplane, List<Airport> allAirports) {
+    private static void validateInput(Airport start, Airport destination, Airplane airplane, List<Airport> allAirports) {
         if (start == null || destination == null || airplane == null || allAirports == null) {
             throw new IllegalArgumentException("Invalid input data: Ensure all values are provided.");
         }
     }
 
     // Filter and find valid refueling airports
-    private static List<Airport> findRefuelingAirports(Airport start, Airport destination, Airplanes airplane, List<Airport> allAirports) {
+    private static List<Airport> findRefuelingAirports(Airport start, Airport destination, Airplane airplane, List<Airport> allAirports) {
         List<Airport> validRefuelingAirports = new ArrayList<>();
         for (Airport airport : allAirports) {
             if (!airport.equals(start) && !airport.equals(destination)
