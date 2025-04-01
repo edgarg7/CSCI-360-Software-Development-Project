@@ -204,17 +204,20 @@ public class AirportManager {
             scanner.nextLine(); // Consume newline
 
             Airport airport = null;
-            if (searchChoice == 1) {
-                System.out.print("Enter ICAO ID of the airport to search: ");
-                String ICAOID = scanner.nextLine();
-                airport = searchAirport(ICAOID, true);
-            } else if (searchChoice == 2) {
-                System.out.print("Enter Airport Name to search: ");
-                String airportName = scanner.nextLine();
-                airport = searchAirport(airportName, false);
-            } else {
-                System.out.println("Invalid choice. Please try again.");
-                return null;
+            switch (searchChoice) {
+                case 1:
+                    System.out.print("Enter ICAO ID of the airport to search: ");
+                    String ICAOID = scanner.nextLine();
+                    airport = searchAirport(ICAOID, true);
+                    break;
+                case 2:
+                    System.out.print("Enter Airport Name to search: ");
+                    String airportName = scanner.nextLine();
+                    airport = searchAirport(airportName, false);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    return null;
             }
 
             // Display results if found
