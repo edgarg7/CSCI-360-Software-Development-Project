@@ -3,6 +3,7 @@
  */
 public class Airplanes {
     private String model;
+    private String planeType;
     private String fuelType;
     private double maxRange;
     private double fuelBurnRate;
@@ -12,14 +13,16 @@ public class Airplanes {
     /**
      * constructor for airplane class
      * @param model: make and model of airplane
+     * @param planeType: type of airplane
      * @param fuelType: type of fuel used by airplane
      * @param maxRange: the max range of airplane
      * @param fuelBurnRate: the fuel burn rate of airplane
      * @param fuelCapacity: the fuel capacity of airplane
      * @param airspeed: the speed at which the airplane travels
      */
-    public Airplanes(String model, String fuelType, double maxRange, double fuelBurnRate, double fuelCapacity, double airspeed) {
+    public Airplanes(String model, String planeType, String fuelType, double maxRange, double fuelBurnRate, double fuelCapacity, double airspeed) {
         this.model = model;
+        this.planeType = planeType;
         this.fuelType = fuelType;
         this.maxRange = maxRange;
         this.fuelBurnRate = fuelBurnRate;
@@ -29,6 +32,7 @@ public class Airplanes {
 
     //Getter methods
     public String getModel() { return model; }
+    public String getPlaneType() { return planeType; }
     public String getFuelType() { return fuelType; }
     public double getMaxRange() { return maxRange; }
     public double getFuelBurnRate() { return fuelBurnRate; }

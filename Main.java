@@ -32,7 +32,7 @@ public class Main {
                 airportManager.modifyAirport(scanner);
                 break;
             case 3:
-                addAirplane(scanner, airplaneManager);
+                airplaneManager.addAirplane(scanner);
                 break;
             case 4:
                 planFlight(scanner, airportManager, airplaneManager);
@@ -87,12 +87,12 @@ public class Main {
         }
     }
 
-    /**
-     * This will add a new airplane using user input.
-     */
+    /** 
     private static void addAirplane(Scanner scanner, AirplaneManager airplaneManager) {
         System.out.print("Enter Make and Model: ");
         String model = scanner.nextLine();
+        System.out.print("Enter Plane Type (Jet, Prop, Turboprop): ");
+        String planeType = scanner.nextLine();
         System.out.print("Enter Fuel Type: ");
         String fuelType = scanner.nextLine();
         System.out.print("Enter Max Range: ");
@@ -108,7 +108,7 @@ public class Main {
         airplaneManager.addAirplane(new Airplanes(model, fuelType, maxRange, fuelBurnRate, fuelCapacity, airspeed));
         System.out.println("Airplane added successfully!");
     }
-    
+    **/
     /**
      * This handles flight planning, distance, fuel estimation, and refueling stops.
      */

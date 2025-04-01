@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class AirplaneManager {
     private List<Airplanes> airplanes;
-    private static final String FILE_NAME = "database/airplanes.txt";
+    private static final String FILE_NAME = "airplanes.txt";
     
     /**
      * This constructor initializes the airplane list by loading data from file
@@ -19,15 +19,43 @@ public class AirplaneManager {
      * 
      * @return the list of airplanes
      */
-    public List<Airplanes> getAirplanes() { return airplanes; }
+    public List<Airplanes> getAirplanes() { 
+        return airplanes; 
+    }
     
     /**
      * 
      * @param airplane will add an airplane to the list and save to file
      */
-    public void addAirplane(Airplanes airplane) {
-    	airplanes.add(airplane);
+    public void addAirplane(Object airplaneOrScanner) {
+    	if (airplaneOrScanner instanceof Airplane) {
+        Airplane airplane = (Airplane) airplaneOrScanner;
+        airplanes.add(airplane);
     	saveAirplanes();
+    }
+        else if (airplaneOrScanner instanceof Scanner) {
+        Scanner scanner = (Scanner) airplaneOrScanner;
+        System.out.print("Enter Airplane Make and Model: ");
+        String makeModel = scanner.nextLine();
+        System.out.print("Enter Airplane Type (Jet, Prop, TurboProp): ");
+        String planeType = scanner.nextLine();
+        System.out.print("Enter Fuel Type: ");
+        String fuelType = scanner.nextLine();
+        System.out.print("Enter Max Range: ");
+        double maxRange = scanner.nextDouble(); // We may not need this if we can make a method to calculate it with the other data
+        System.out.print("Enter Fuel Burn Rate: ");
+        double fuelBurnRate = scanner.nextDouble();
+        System.out.print("Enter Fuel Capacity: ");
+        double fuelCapacity = scanner.nextDouble();
+        System.out.print("Enter Airspeed: ");
+        double airspeed = scanner.nextDouble();
+        scanner.nextLine();
+
+        Airplane newAirplane = new Airplane(makeModel, planeType, fuelType, maxRange, fuelBurnRate, fuelCapacity, airspeed);
+        airplanes.add(newAirplane);
+        saveAirplanes();
+        System.out.println("Airplane added successfully!");
+        }
     }
     
     /** loads airplane data from file
