@@ -5,7 +5,7 @@ import java.util.*;
  * airplane data from a file.
  */
 public class AirplaneManager {
-    private List<Airplane> airplanes;
+    private final List<Airplane> airplanes;
     private static final String FILE_NAME = "airplanes.txt";
     
     /**
@@ -58,22 +58,196 @@ public class AirplaneManager {
         }
     }
     
+    // Modifyes an airplane using user input
+    public void modifyAirplane(Object param1, Object... additionalParams) {
+        if (param1 instanceof String && additionalParams.length > 0 && additionalParams[0] instanceof Airplane) {
+            String makeModel = (String) param1;
+            Airplane updatedAirplane = (Airplane) additionalParams[0];
+
+            for (int i = 0; i < airplanes.size(); i++) {
+                if (airplanes.get(i).getMakeModel().equals(makeModel)) {
+                    airplanes.set(i, updatedAirplane);
+                    break;
+                }
+            }
+            saveAirplanes();
+        }
+
+        else if (param1 instanceof Scanner) {
+            Scanner scanner = (Scanner) param1;
+            int start = 0;
+            int batchSize = 10;
+            boolean moreAirplanes = true;  
+
+        while (moreAirplanes) {
+            // Display a batch of airplanes
+            for (int i = start; i < start + batchSize && i < airplanes.size(); i++) {
+                Airplane airplane = airplanes.get(i);
+                System.out.println((i + 1) + ". " + airplane.getMakeModel() + " (" + airplane.getPlaneType() + ")");
+            }
+
+            System.out.print("Enter the number of the airplane to modify, type 'more' to see more airplanes, or type 'search' to search by plane type: ");
+            String input = scanner.nextLine();
+
+            // If the user inputs "more" or "search" it will show more airplanes or search for an airplane
+            if (input.equalsIgnoreCase("more")) {
+                if (start + batchSize >= airplanes.size()) {
+                    System.out.println("No more airplanes to show.");
+                    continue;
+                } 
+                    start += batchSize;
+
+            } else if (input.equalsIgnoreCase("search")) {
+                System.out.print("Enter Plane Type to search: ");
+                String planeType = scanner.nextLine();
+                Airplane airplane = searchAirplane(planeType);
+                if (airplane == null) {
+                    System.out.println("Airplane not found.");
+                    continue;
+                }
+
+                System.out.print("Enter new Airplane Make and Model (current : " + airplane.getMakeModel() + "): ");
+                String makeModel = scanner.nextLine();
+                System.out.print("Enter new Airplane Type (current: " + airplane.getPlaneType() + "): ");
+                String newPlaneType = scanner.nextLine();
+                System.out.print("Enter new Fuel Type (current: " + airplane.getFuelType() + "): ");
+                String fuelType = scanner.nextLine(); 
+                System.out.print("Enter new Max Range (current: " + airplane.getMaxRange() + "): ");
+                Double maxRange = scanner.nextDouble();
+                System.out.print("Enter new Fuel Burn Rate (current: " + airplane.getFuelBurnRate() + "): ");
+                Double fuelBurnRate = scanner.nextDouble();
+                System.out.print("Enter new Fuel Capacity (current: " + airplane.getFuelCapacity() + "): ");
+                Double fuelCapacity = scanner.nextDouble();
+                System.out.print("Enter new Airspeed (current: " + airplane.getAirspeed() + "): ");
+                Double airspeed = scanner.nextDouble();
+
+                // Updates the airplane with new details
+                Airplane updatedAirplane = new Airplane(makeModel, newPlaneType, fuelType, maxRange, fuelBurnRate, fuelCapacity, airspeed);
+                modifyAirplane(airplane.getMakeModel(), updatedAirplane);
+                System.out.println("Airplane updated successfully!");
+                
+                moreAirplanes = false;
+                } else {
+                    try {
+                        int index = Integer.parseInt(input) - 1;
+
+                        if (index < 0 || index >= airplanes.size()) {
+                            System.out.println("Invalid selection");
+                            continue;
+                        }
+
+                        Airplane airplane = airplanes.get(index);
+
+                        System.out.print("Enter new Airplane Make and Model (current : " + airplane.getMakeModel() + "): ");
+                        String makeModel = scanner.nextLine();
+                        System.out.print("Enter new Airplane Type (current: " + airplane.getPlaneType() + "): ");
+                        String planeType = scanner.nextLine();
+                        System.out.print("Enter new Fuel Type (current: " + airplane.getFuelType() + "): ");
+                        String fuelType = scanner.nextLine(); 
+                        System.out.print("Enter new Max Range (current: " + airplane.getMaxRange() + "): ");
+                        Double maxRange = scanner.nextDouble();
+                        System.out.print("Enter new Fuel Burn Rate (current: " + airplane.getFuelBurnRate() + "): ");
+                        Double fuelBurnRate = scanner.nextDouble();
+                        System.out.print("Enter new Fuel Capacity (current: " + airplane.getFuelCapacity() + "): ");
+                        Double fuelCapacity = scanner.nextDouble();
+                        System.out.print("Enter new Airspeed (current: " + airplane.getAirspeed() + "): ");
+                        Double airspeed = scanner.nextDouble();
+
+                        // Updates the airplane with new details
+                        Airplane updatedAirplane = new Airplane(makeModel, planeType, fuelType, maxRange, fuelBurnRate, fuelCapacity, airspeed);
+                        modifyAirplane(airplane.getMakeModel(), updatedAirplane);
+                        System.out.println("Airplane updated successfully!");
+
+                        moreAirplanes = false;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number, 'more', or 'search'.");
+                    }
+                }
+            }
+        }
+    }
+    
+    //TODO: Create the displayAirplane method
+
+    public Airplane searchAirplane (Object searchParam, Object... additionalParams) {
+        if (searchParam instanceof Scanner) {
+            Scanner scanner = (Scanner) searchParam;
+            System.out.print("Search by (1) Make and Model or (2) Plane Type: ");
+            int searchChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            Airplane airplane = null;
+            switch (searchChoice) {
+                case 1:
+                    System.out.print("Enter Make and Model to search: ");
+                    String makeModel = scanner.nextLine();
+                    airplane = searchAirplane(makeModel);
+                    break;
+                case 2:
+                    System.out.print("Enter Plane Type to search: ");
+                    String planeType = scanner.nextLine();
+                    airplane = searchAirplane(planeType);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    return null;
+            }
+
+            if (airplane != null) {
+                System.out.println("\nAirplane Make and Model: " + airplane.getMakeModel());
+                System.out.println("Airplane Type: " + airplane.getPlaneType());
+                System.out.println("Fuel Type: " + airplane.getFuelType());
+                System.out.println("Max Range: " + airplane.getMaxRange());
+                System.out.println("Fuel Burn Rate: " + airplane.getFuelBurnRate());
+                System.out.println("Fuel Capacity: " + airplane.getFuelCapacity());
+                System.out.println("Airspeed: " + airplane.getAirspeed());
+            } else {
+                System.out.println("Airplane not found.");
+            }
+            return airplane;
+        }
+        else if (searchParam instanceof String && additionalParams.length > 0 && additionalParams[0] instanceof Boolean) {
+            String identifier = (String) searchParam;
+            boolean isMakeModel = (Boolean) additionalParams[0];
+
+            for (Airplane airplane : airplanes) {
+                if (isMakeModel) {
+                    if (airplane.getMakeModel().equalsIgnoreCase(identifier)) {
+                        return airplane;
+                    }
+                } else {
+                    if (airplane.getPlaneType().equalsIgnoreCase(identifier)) {
+                        return airplane;
+                    }
+                }
+            }
+            return null;
+        }
+        else if (searchParam instanceof String) {
+            String MakeModel = (String) searchParam;
+            return searchAirplane(MakeModel, true);
+        }
+        return null;
+    }
+
+    //TODO: Create the removeAirplane method
+
     /** loads airplane data from file
      * @return list of airplanes
      */
     private List<Airplane> loadAirplanes(){
-        List<Airplane> airplanes = new ArrayList<>();
+        List<Airplane> loadedAirplanes = new ArrayList<>();
     	try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
     		String line;
+            reader.readLine(); // skip header
     		while((line = reader.readLine()) != null) {
     			String[] data = line.split(",");
-                airplanes.add(new Airplane(data[0], data[1], Double.parseDouble(data[2]),
-                        Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[5])));
+                loadedAirplanes.add(new Airplane(data[0], data[1], data[2], Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[5]), Double.parseDouble(data[6])));
     		}
     	} catch(IOException e) {
     		System.out.println("No existing airplane data found.");
     	}
-    	return airplanes;
+        return loadedAirplanes;
     }
     
     /**
@@ -81,9 +255,10 @@ public class AirplaneManager {
      */
     private void saveAirplanes() {
     	try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))){
+            writer.write("Make and Model, Plane Type, Fuel Type, Max Range, Fuel Burn Rate, Fuel Capacity, Airspeed\n");
             for(Airplane airplane : airplanes) {
-    			writer.write(airplane.getModel() + "," + airplane.getFuelType() + "," + airplane.getMaxRange() + ","
-    					 + airplane.getFuelBurnRate() + "," + airplane.getFuelCapacity() + "," + airplane.getAirspeed() + "\n");
+    			writer.write(airplane.getMakeModel() + "," + airplane.getPlaneType() + "," + airplane.getFuelType() + "," + airplane.getMaxRange() + ","
+    					+ airplane.getFuelBurnRate() + "," + airplane.getFuelCapacity() + "," + airplane.getAirspeed() + "\n");
     		}
     	} catch(IOException e) {
     		System.out.println("Error saving airplane data.");
