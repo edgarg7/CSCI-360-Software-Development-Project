@@ -2,7 +2,7 @@
  * represents airplanes with attributes 
  */
 public class Airplane {
-    private String model;
+    private String makeModel;
     private String planeType;
     private String fuelType;
     private double maxRange;
@@ -12,7 +12,7 @@ public class Airplane {
     
     /**
      * constructor for airplane class
-     * @param model: make and model of airplane
+     * @param makeModel: make and model of airplane
      * @param planeType: type of airplane
      * @param fuelType: type of fuel used by airplane
      * @param maxRange: the max range of airplane
@@ -20,8 +20,8 @@ public class Airplane {
      * @param fuelCapacity: the fuel capacity of airplane
      * @param airspeed: the speed at which the airplane travels
      */
-    public Airplane(String model, String planeType, String fuelType, double maxRange, double fuelBurnRate, double fuelCapacity, double airspeed) {
-        this.model = model;
+    public Airplane(String makeModel, String planeType, String fuelType, double maxRange, double fuelBurnRate, double fuelCapacity, double airspeed) {
+        this.makeModel = makeModel;
         this.planeType = planeType;
         this.fuelType = fuelType;
         this.maxRange = maxRange;
@@ -31,7 +31,7 @@ public class Airplane {
     }
 
     //Getter methods
-    public String getModel() { return model; }
+    public String getMakeModel() { return makeModel; }
     public String getPlaneType() { return planeType; }
     public String getFuelType() { return fuelType; }
     public double getMaxRange() { return maxRange; }
