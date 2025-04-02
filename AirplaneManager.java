@@ -167,7 +167,37 @@ public class AirplaneManager {
         }
     }
     
-    //TODO: Create the displayAirplane method
+    public void displayAirplane(Scanner scanner) {
+        System.out.print("Search by (1) Make and Model or (2) Plane Type: ");
+        int searchChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Airplane airplane = null;
+        if (searchChoice == 1) {
+            System.out.print("Enter Make and Model to search: ");
+            String makeModel = scanner.nextLine();
+            airplane = searchAirplane(makeModel);
+        } else if (searchChoice == 2) {
+            System.out.print("Enter Plane Type to search: ");
+            String planeType = scanner.nextLine();
+            airplane = searchAirplane(planeType, false);
+        } else {
+            System.out.println("Invailid choice. Please try again.");
+            return;
+        }
+
+        if (airplane != null) {
+            System.out.println("\nAirplane Make and Model: " + airplane.getMakeModel());
+            System.out.println("Airplane Type: " + airplane.getPlaneType());
+            System.out.println("Fuel Type: " + airplane.getFuelType());
+            System.out.println("Max Range: " + airplane.getMaxRange());
+            System.out.println("Fuel Burn Rate: " + airplane.getFuelBurnRate());
+            System.out.println("Fuel Capacity: " + airplane.getFuelCapacity());
+            System.out.println("Airspeed: " + airplane.getAirspeed());
+        } else {
+            System.out.println("Airplane not found.");
+        }
+    }
 
     public Airplane searchAirplane (Object searchParam, Object... additionalParams) {
         if (searchParam instanceof Scanner) {
@@ -230,7 +260,25 @@ public class AirplaneManager {
         return null;
     }
 
-    //TODO: Create the removeAirplane method
+    public void removeAirplane(Object scannerOrMakeModel) {
+        if (scannerOrMakeModel instanceof Scanner) {
+            Scanner scanner = (Scanner) scannerOrMakeModel;
+            System.out.print("Enter Make and Model of airplane to remove: ");
+            String makeModel = scanner.nextLine();
+            Airplane airplane = searchAirplane(makeModel);
+            if (airplane != null) {
+                removeAirplane(makeModel);
+                System.out.println("Airplane removed successfully!");
+            } else {
+                System.out.println("Airplane not found.");
+            }
+        } else if (scannerOrMakeModel instanceof String) {
+            String makeModel = (String) scannerOrMakeModel;
+            airplanes.removeIf(airplane -> airplane.getMakeModel().equalsIgnoreCase(makeModel));
+            saveAirplanes();
+        }
+    }
+ 
 
     /** loads airplane data from file
      * @return list of airplanes
