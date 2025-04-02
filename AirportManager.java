@@ -279,7 +279,7 @@ public class AirportManager {
         }
         else if (scannerOrIcaoId instanceof String) {
             String ICAOID = (String) scannerOrIcaoId;
-            airports.removeIf(airport -> airport.getICAOID().equals(ICAOID));
+            airports.removeIf(airport -> airport.getICAOID().equalsIgnoreCase(ICAOID));
             saveAirports();
         }
     } 

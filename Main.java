@@ -108,7 +108,7 @@ public class Main {
             case 2:
                 airplaneManager.modifyAirplane(scanner);
                 break;
-            /*case 3:
+            case 3:
                 airplaneManager.displayAirplane(scanner);
                 break;
             case 4:
@@ -118,7 +118,7 @@ public class Main {
                 airplaneManager.removeAirplane(scanner);
                 break;
             case 6:
-                return; */
+                return;
             default:
                 System.out.println("Invalid choice. Please try again.");
             }
