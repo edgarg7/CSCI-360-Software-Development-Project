@@ -1,73 +1,72 @@
-Airport ID,type,Airport Name,Latitude,Longitude,Elevation (Ft.),Region_State,Region_Abbr.,City,ICAO,iata_code,local_code
-,,,,,,,,,,,
-#meta +id,,,,,,,,,,,
-5388,large_airport,Ted Stevens Anchorage International Airport,61.179004,-149.992561,152,Alaska,AK,Anchorage,PANC,ANC,ANC
-3772,large_airport,Phoenix Sky Harbor International Airport,33.435302,-112.005905,1135,Arizona,AZ,Phoenix,KPHX,PHX,PHX
-3632,large_airport,Los Angeles International Airport,33.942501,-118.407997,125,California,CA,Los Angeles,KLAX,LAX,LAX
-3878,large_airport,San Francisco International Airport,37.619806,-122.374821,13,California,CA,San Francisco,KSFO,SFO,SFO
-3862,large_airport,San Diego International Airport,32.73360062,-117.1900024,17,California,CA,San Diego,KSAN,SAN,SAN
-3883,large_airport,Norman Y. Mineta San Jose International Airport,37.362452,-121.929188,62,California,CA,San Jose,KSJC,SJC,SJC
-3744,large_airport,San Francisco Bay Oakland International Airport,37.720085,-122.221184,9,California,CA,Oakland,KOAK,OAK,OAK
-3894,large_airport,John Wayne Orange County International Airport,33.675701,-117.867996,56,California,CA,Santa Ana,KSNA,SNA,SNA
-3892,large_airport,Sacramento International Airport,38.6954,-121.591003,27,California,CA,Sacramento,KSMF,SMF,SMF
-3752,large_airport,Ontario International Airport,34.056,-117.600998,944,California,CA,Ontario,KONT,ONT,ONT
-3486,large_airport,Denver International Airport,39.86169815,-104.6729965,5431,Colorado,CO,Denver,KDEN,DEN,DEN
-3396,large_airport,Bradley International Airport,41.93851,-72.688066,173,Connecticut,CT,Hartford,KBDL,BDL,BDL
-3483,large_airport,Ronald Reagan Washington National Airport,38.8521,-77.037697,15,District of Columbia,DC,Washington,KDCA,DCA,DCA
-3670,large_airport,Orlando International Airport,28.42939949,-81.30899811,96,Florida,FL,Orlando,KMCO,MCO,MCO
-3685,large_airport,Miami International Airport,25.79319954,-80.29060364,8,Florida,FL,Miami,KMIA,MIA,MIA
-3531,large_airport,Fort Lauderdale Hollywood International Airport,26.072599,-80.152702,9,Florida,FL,Fort Lauderdale,KFLL,FLL,FLL
-3926,large_airport,Tampa International Airport,27.9755,-82.533203,26,Florida,FL,Tampa,KTPA,TPA,TPA
-3620,large_airport,Jacksonville International Airport,30.492469,-81.687813,30,Florida,FL,Jacksonville,KJAX,JAX,JAX
-3766,large_airport,Palm Beach International Airport,26.683201,-80.095596,19,Florida,FL,West Palm Beach,KPBI,PBI,PBI
-3858,large_airport,Southwest Florida International Airport,26.53619957,-81.75520325,30,Florida,FL,Fort Myers,KRSW,RSW,RSW
-3899,large_airport,Sarasota Bradenton International Airport,27.394631,-82.554359,30,Florida,FL,Sarasota/Bradenton,KSRQ,SRQ,SRQ
-3876,large_airport,Orlando Sanford International Airport,28.77759933,-81.23750305,55,Florida,FL,Orlando,KSFB,SFB,SFB
-3384,large_airport,Hartsfield Jackson Atlanta International Airport,33.6367,-84.428101,1026,Georgia,GA,Atlanta,KATL,ATL,ATL
-3864,large_airport,Savannah Hilton Head International Airport,32.127602,-81.202103,50,Georgia,GA,Savannah,KSAV,SAV,SAV
-5453,large_airport,Daniel K Inouye International Airport,21.32062,-157.924228,13,Hawaii,HI,"Honolulu, Oahu",PHNL,HNL,HNL
-5455,large_airport,Kahului International Airport,20.896263,-156.431837,54,Hawaii,HI,Kahului,PHOG,OGG,OGG
-3754,large_airport,Chicago O'Hare International Airport,41.9786,-87.9048,680,Illinois,IL,Chicago,KORD,ORD,ORD
-3673,large_airport,Chicago Midway International Airport,41.785999,-87.752403,620,Illinois,IL,Chicago,KMDW,MDW,MDW
-3610,large_airport,Indianapolis International Airport,39.7173,-86.294403,797,Indiana,IN,Indianapolis,KIND,IND,IND
-3471,large_airport,Cincinnati Northern Kentucky International Airport,39.048801,-84.667801,896,Kentucky,KY,Cincinnati / Covington,KCVG,CVG,CVG
-3873,large_airport,Louisville Muhammad Ali International Airport,38.1744,-85.736,501,Kentucky,KY,Louisville,KSDF,SDF,SDF
-3711,large_airport,Louis Armstrong New Orleans International Airport,29.993401,-90.258003,4,Louisiana,LA,New Orleans,KMSY,MSY,MSY
-3796,large_airport,Portland International Jetport,43.646198,-70.309303,76,Maine,ME,Portland,KPWM,PWM,PWM
-3435,large_airport,Baltimore/Washington International Thurgood Marshall Airport,39.1754,-76.668297,146,Maryland,MD,Baltimore,KBWI,BWI,BWI
-3422,large_airport,Logan International Airport,42.36197,-71.0079,20,Massachusetts,MA,Boston,KBOS,BOS,BOS
-3497,large_airport,Detroit Metropolitan Wayne County Airport,42.21377,-83.353786,645,Michigan,MI,Detroit,KDTW,DTW,DTW
-3709,large_airport,Minneapolis Saint Paul International Airport ,44.880081,-93.221741,841,Minnesota,MN,Minneapolis,KMSP,MSP,MSP
-3905,large_airport,St. Louis Lambert International Airport,38.748697,-90.370003,618,Missouri,MO,St Louis,KSTL,STL,STL
-3668,large_airport,Kansas City International Airport,39.2976,-94.713898,1026,Missouri,MO,Kansas City,KMCI,MCI,MCI
-3751,large_airport,Eppley Airfield,41.3032,-95.894096,984,Nebraska,NE,Omaha,KOMA,OMA,OMA
-3631,large_airport,Harry Reid International Airport,36.083361,-115.151817,2181,Nevada,NV,Las Vegas,KLAS,LAS,LAS
-3853,large_airport,Reno Tahoe International Airport,39.4991,-119.767998,4415,Nevada,NV,Reno,KRNO,RNO,RNO
-3521,large_airport,Newark Liberty International Airport,40.692501,-74.168701,18,New Jersey,NJ,Newark,KEWR,EWR,EWR
-16091,large_airport,Albuquerque International Sunport,35.039976,-106.608925,5355,New Mexico,NM,Albuquerque,KABQ,ABQ,ABQ
-3622,large_airport,John F Kennedy International Airport,40.639447,-73.779317,13,New York,NY,New York,KJFK,JFK,JFK
-3643,large_airport,LaGuardia Airport,40.777199,-73.872597,21,New York,NY,New York,KLGA,LGA,LGA
-3431,large_airport,Buffalo Niagara International Airport,42.940498,-78.732201,728,New York,NY,Buffalo,KBUF,BUF,BUF
-3913,large_airport,Syracuse Hancock International Airport,43.11119843,-76.10630035,421,New York,NY,Syracuse,KSYR,SYR,SYR
-3457,large_airport,Charlotte Douglas International Airport,35.2140007,-80.94309998,748,North Carolina,NC,Charlotte,KCLT,CLT,CLT
-3844,large_airport,Raleigh Durham International Airport,35.877602,-78.787498,435,North Carolina,NC,Raleigh/Durham,KRDU,RDU,RDU
-3454,large_airport,Cleveland Hopkins International Airport,41.411701,-81.8498,791,Ohio,OH,Cleveland,KCLE,CLE,CLE
-3458,large_airport,John Glenn Columbus International Airport,39.998001,-82.891899,815,Ohio,OH,Columbus,KCMH,CMH,CMH
-3747,large_airport,Will Rogers World Airport,35.393388,-97.598248,1295,Oklahoma,OK,Oklahoma City,KOKC,OKC,OKC
-3930,large_airport,Tulsa International Airport,36.19839859,-95.88809967,677,Oklahoma,OK,Tulsa,KTUL,TUL,TUL
-3768,large_airport,Portland International Airport,45.588699,-122.598,31,Oregon,OR,Portland,KPDX,PDX,PDX
-3771,large_airport,Philadelphia International Airport,39.871899,-75.241096,36,Pennsylvania,PA,Philadelphia,KPHL,PHL,PHL
-3778,large_airport,Pittsburgh International Airport,40.491501,-80.232903,1203,Pennsylvania,PA,Pittsburgh,KPIT,PIT,PIT
-3795,large_airport,Theodore Francis Green State Airport,41.725038,-71.425668,55,Rhode Island,RI,Warwick,KPVD,PVD,PVD
-3420,large_airport,Nashville International Airport,36.1245,-86.6782,599,Tennessee,TN,Nashville,KBNA,BNA,BNA
-3675,large_airport,Memphis International Airport,35.0424,-89.9767,341,Tennessee,TN,Memphis,KMEM,MEM,MEM
-3488,large_airport,Dallas Fort Worth International Airport,32.896801,-97.038002,607,Texas,TX,Dallas-Fort Worth,KDFW,DFW,DFW
-3604,large_airport,George Bush Intercontinental Houston Airport,29.9843998,-95.34140015,97,Texas,TX,Houston,KIAH,IAH,IAH
-3386,large_airport,Austin Bergstrom International Airport,30.197535,-97.662015,542,Texas,TX,Austin,KAUS,AUS,AUS
-3863,large_airport,San Antonio International Airport,29.533701,-98.469803,809,Texas,TX,San Antonio,KSAT,SAT,SAT
-3887,large_airport,Salt Lake City International Airport,40.78886,-111.979866,4227,Utah,UT,Salt Lake City,KSLC,SLC,SLC
-3602,large_airport,Washington Dulles International Airport,38.9445,-77.455803,312,Virginia,VA,Dulles,KIAD,IAD,IAD
-3755,large_airport,Norfolk International Airport,36.895341,-76.201,26,Virginia,VA,Norfolk,KORF,ORF,ORF
-3847,large_airport,Richmond International Airport,37.505199,-77.319702,167,Virginia,VA,Richmond,KRIC,RIC,RIC
-3875,large_airport,Seattle Tacoma International Airport,47.447943,-122.310276,433,Washington,WA,Seattle,KSEA,SEA,SEA
-3690,large_airport,General Mitchell International Airport,42.947201,-87.896599,723,Wisconsin,WI,Milwaukee,KMKE,MKE,MKE
+Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_State,Region_Abbr.,City,ICAO,iata_code,Fuel Types
+5388,Ted Stevens Anchorage International Airport,61.179004,-149.992561,152.0,113.15,Alaska,AK,Anchorage,PANC,ANC,3.0
+3772,Phoenix Sky Harbor International Airport,33.435302,-112.005905,1135.0,115.6,Arizona,AZ,Phoenix,KPHX,PHX,3.0
+3632,Los Angeles International Airport,33.942501,-118.407997,125.0,113.6,California,CA,Los Angeles,KLAX,LAX,3.0
+3878,San Francisco International Airport,37.619806,-122.374821,13.0,115.8,California,CA,San Francisco,KSFO,SFO,3.0
+3862,San Diego International Airport,32.73360062,-117.1900024,17.0,117.0,California,CA,San Diego,KSAN,SAN ,3.0
+3883,Norman Y. Mineta San Jose International Airport,37.362452,-121.929188,62.0,114.1,California,CA,San Jose,KSJC,SJC,3.0
+3744,San Francisco Bay Oakland International Airport,37.720085,-122.221184,9.0,116.8,California,CA,Oakland,KOAK,OAK,3.0
+3894,John Wayne Orange County International Airport,33.675701,-117.867996,56.0,117.2,California,CA,Santa Ana,KSNA,SNA,3.0
+3892,Sacramento International Airport,38.6954,-121.591003,27.0,109.2,California,CA,Sacramento,KSMF,SMF,3.0
+3752,Ontario International Airport,34.056,-117.600998,944.0,112.2,California,CA,Ontario,KONT,ONT,3.0
+3486,Denver International Airport,39.86169815,-104.6729965,5431.0,114.7,Colorado,CO,Denver,KDEN,DEN,3.0
+3396,Bradley International Airport,41.93851,-72.688066,173.0,117.05,Connecticut,CT,Hartford,KBDL,BDL,3.0
+3483,Ronald Reagan Washington National Airport,38.8521,-77.037697,15.0,111.0,District of Columbia,DC,Washington,KDCA,DCA,3.0
+3670,Orlando International Airport,28.42939949,-81.30899811,96.0,112.2,Florida,FL,Orlando,KMCO,MCO,3.0
+3685,Miami International Airport,25.79319954,-80.29060364,8.0,113.9,Florida,FL,Miami,KMIA,MIA,3.0
+3531,Fort Lauderdale Hollywood International Airport,26.072599,-80.152702,9.0,114.4,Florida,FL,Fort Lauderdale,KFLL,FLL,3.0
+3926,Tampa International Airport,27.9755,-82.533203,26.0,111.0,Florida,FL,Tampa,KTPA,TPA,3.0
+3620,Jacksonville International Airport,30.492469,-81.687813,30.0,114.5,Florida,FL,Jacksonville,KJAX,JAX,3.0
+3766,Palm Beach International Airport,26.683201,-80.095596,19.0,115.7,Florida,FL,West Palm Beach,KPBI,PBI,3.0
+3858,Southwest Florida International Airport,26.53619957,-81.75520325,30.0,114.15,Florida,FL,Fort Myers,KRSW,RSW,3.0
+3899,Sarasota Bradenton International Airport,27.394631,-82.554359,30.0,117.0,Florida,FL,Sarasota/Bradenton,KSRQ,SRQ,3.0
+3876,Orlando Sanford International Airport,28.77759933,-81.23750305,55.0,112.2,Florida,FL,Orlando,KSFB,SFB,3.0
+3384,Hartsfield Jackson Atlanta International Airport,33.6367,-84.428101,1026.0,116.9,Georgia,GA,Atlanta,KATL,ATL,3.0
+3864,Savannah Hilton Head International Airport,32.127602,-81.202103,50.0,115.95,Georgia,GA,Savannah,KSAV,SAV,3.0
+5453,Daniel K Inouye International Airport,21.32062,-157.924228,13.0,114.8,Hawaii,HI,Honolulu,PHNL,HNL,3.0
+5455,Kahului International Airport,20.896263,-156.431837,54.0,115.1,Hawaii,HI,Kahului,PHOG,OGG,3.0
+3754,Chicago O'Hare International Airport,41.9786,-87.9048,680.0,108.25,Illinois,IL,Chicago,KORD,ORD,3.0
+3673,Chicago Midway International Airport,41.785999,-87.752403,620.0,108.25,Illinois,IL,Chicago,KMDW,MDW,3.0
+3610,Indianapolis International Airport,39.7173,-86.294403,797.0,116.3,Indiana,IN,Indianapolis,KIND,IND,3.0
+3471,Cincinnati Northern Kentucky International Airport,39.048801,-84.667801,896.0,117.3,Kentucky,KY,Cincinnati / Covington,KCVG,CVG,3.0
+3873,Louisville Muhammad Ali International Airport,38.1744,-85.736,501.0,114.8,Kentucky,KY,Louisville,KSDF,SDF,3.0
+3711,Louis Armstrong New Orleans International Airport,29.993401,-90.258003,4.0,114.1,Louisiana,LA,New Orleans,KMSY,MSY,3.0
+3796,Portland International Jetport,43.646198,-70.309303,76.0,117.1,Maine,ME,Portland,KPWM,PWM,3.0
+3435,Baltimore/Washington International Thurgood Marshall Airport,39.1754,-76.668297,146.0,115.1,Maryland,MD,Baltimore,KBWI,BWI,3.0
+3422,Logan International Airport,42.36197,-71.0079,20.0,112.7,Massachusetts,MA,Boston,KBOS,BOS,3.0
+3497,Detroit Metropolitan Wayne County Airport,42.21377,-83.353786,645.0,113.4,Michigan,MI,Detroit,KDTW,DTW,3.0
+3709,Minneapolis Saint Paul International Airport ,44.880081,-93.221741,841.0,115.3,Minnesota,MN,Minneapolis,KMSP,MSP,3.0
+3905,St. Louis Lambert International Airport,38.748697,-90.370003,618.0,116.45,Missouri,MO,St Louis,KSTL,STL,3.0
+3668,Kansas City International Airport,39.2976,-94.713898,1026.0,113.25,Missouri,MO,Kansas City,KMCI,MCI,3.0
+3751,Eppley Airfield,41.3032,-95.894096,984.0,116.3,Nebraska,NE,Omaha,KOMA,OMA,3.0
+3631,Harry Reid International Airport,36.083361,-115.151817,2181.0,116.9,Nevada,NV,Las Vegas,KLAS,LAS,3.0
+3853,Reno Tahoe International Airport,39.4991,-119.767998,4415.0,117.9,Nevada,NV,Reno,KRNO,RNO,3.0
+3521,Newark Liberty International Airport,40.692501,-74.168701,18.0,113.75,New Jersey,NJ,Newark,KEWR,EWR,3.0
+1609,Albuquerque International Sunport,35.039976,-106.608925,5355.0,113.2,New Mexico,NM,Albuquerque,KABQ,ABQ,3.0
+3622,John F Kennedy International Airport,40.639447,-73.779317,13.0,115.9,New York,NY,New York,KJFK,JFK,3.0
+3643,LaGuardia Airport,40.777199,-73.872597,21.0,113.1,New York,NY,New York,KLGA,LGA,3.0
+3431,Buffalo Niagara International Airport,42.940498,-78.732201,728.0,116.4,New York,NY,Buffalo,KBUF,BUF,3.0
+3913,Syracuse Hancock International Airport,43.11119843,-76.10630035,421.0,117.0,New York,NY,Syracuse,KSYR,SYR,3.0
+3457,Charlotte Douglas International Airport,35.2140007,-80.94309998,748.0,115.0,North Carolina,NC,Charlotte,KCLT,CLT,3.0
+3844,Raleigh Durham International Airport,35.877602,-78.787498,435.0,117.2,North Carolina,NC,Raleigh/Durham,KRDU,RDU,3.0
+3454,Cleveland Hopkins International Airport,41.411701,-81.8498,791.0,113.6,Ohio,OH,Cleveland,KCLE,CLE,3.0
+3458,John Glenn Columbus International Airport,39.998001,-82.891899,815.0,116.7,Ohio,OH,Columbus,KCMH,CMH,3.0
+3747,Will Rogers World Airport,35.393388,-97.598248,1295.0,114.1,Oklahoma,OK,Oklahoma City,KOKC,OKC,3.0
+3930,Tulsa International Airport,36.19839859,-95.88809967,677.0,114.4,Oklahoma,OK,Tulsa,KTUL,TUL,3.0
+3768,Portland International Airport,45.588699,-122.598,31.0,109.2,Oregon,OR,Portland,KPDX,PDX,3.0
+3771,Philadelphia International Airport,39.871899,-75.241096,36.0,112.8,Pennsylvania,PA,Philadelphia,KPHL,PHL,3.0
+3778,Pittsburgh International Airport,40.491501,-80.232903,1203.0,112.0,Pennsylvania,PA,Pittsburgh,KPIT,PIT,3.0
+3795,Theodore Francis Green State Airport,41.725038,-71.425668,55.0,115.6,Rhode Island,RI,Warwick,KPVD,PVD,3.0
+3420,Nashville International Airport,36.1245,-86.6782,599.0,114.1,Tennessee,TN,Nashville,KBNA,BNA,3.0
+3675,Memphis International Airport,35.0424,-89.9767,341.0,117.5,Tennessee,TN,Memphis,KMEM,MEM,3.0
+3488,Dallas Fort Worth International Airport,32.896801,-97.038002,607.0,113.1,Texas,TX,Dallas-Fort Worth,KDFW,DFW,3.0
+3604,George Bush Intercontinental Houston Airport,29.9843998,-95.34140015,97.0,116.6,Texas,TX,Houston,KIAH,IAH,3.0
+3386,Austin Bergstrom International Airport,30.197535,-97.662015,542.0,112.8,Texas,TX,Austin,KAUS,AUS,3.0
+3863,San Antonio International Airport,29.533701,-98.469803,809.0,116.8,Texas,TX,San Antonio,KSAT,SAT,3.0
+3887,Salt Lake City International Airport,40.78886,-111.979866,4227.0,121.9,Utah,UT,Salt Lake City,KSLC,SLC,3.0
+3602,Washington Dulles International Airport,38.9445,-77.455803,312.0,113.5,Virginia,VA,Dulles,KIAD,IAD,3.0
+3755,Norfolk International Airport,36.895341,-76.201,26.0,116.9,Virginia,VA,Norfolk,KORF,ORF,3.0
+3847,Richmond International Airport,37.505199,-77.319702,167.0,114.1,Virginia,VA,Richmond,KRIC,RIC,3.0
+3875,Seattle Tacoma International Airport,47.447943,-122.310276,433.0,116.8,Washington,WA,Seattle,KSEA,SEA,3.0
+3690,General Mitchell International Airport,42.947201,-87.896599,723.0,115.65,Wisconsin,WI,Milwaukee,KMKE,MKE,3.0
+900,MOD2,9.0,9.0,9.0,9.0,MOD2,MOD2,MOD2,MOD2,MOD2,3.0

@@ -7,3 +7,4 @@ Seattle-Tacoma International,SEA,47.443546,-122.301659,Jet-A1,122.95
 Dubai International,DXB,25.252777,55.364445,Jet-A1,119.550
 Amsterdam Schipol,AMS,52.3169,4.7459,Jet-A1,118.080
 London Heathrow,EGLL,51.468,0.4551,SAF,118.700
+
