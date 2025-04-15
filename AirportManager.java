@@ -5,7 +5,7 @@ import java.util.*;
 
 public class AirportManager {
     private final List<Airport> airports;
-    private static final String FILE_NAME = "airports.txt";
+    private static final String FILE_NAME = "Airport_Database.csv";
 
     // Constructor for AirportManager
     public AirportManager() {
@@ -28,21 +28,49 @@ public class AirportManager {
         // If there is an instance of a scanner (user input) this method will be called
         else if (airportOrScanner instanceof Scanner) { 
             Scanner scanner = (Scanner) airportOrScanner;
+
+            System.out.print("Enter Airport ID: ");
+            String airportID = scanner.nextLine();
+
             System.out.print("Enter Airport Name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter ICAO ID: ");
-            String ICAOID = scanner.nextLine();
+            String airportName = scanner.nextLine();
+
             System.out.print("Enter Latitude: ");
             double latitude = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
             System.out.print("Enter Longitude: ");
             double longitude = scanner.nextDouble();
             scanner.nextLine(); // Consume newline
-            System.out.print("Enter Fuel Type: ");
-            String fuelType = scanner.nextLine();
-            System.out.print("Enter Radio Frequency: ");
-            String radioFrequencies = scanner.nextLine();
 
-            Airport newAirport = new Airport(name, ICAOID, latitude, longitude, fuelType, radioFrequencies);
+            System.out.print("Enter Elevation: ");
+            double elevation = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
+            System.out.print("Enter Radio Frequencies: ");
+            Double radioFrequencies = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
+            System.out.print("Enter Region/State: ");
+            String regionState = scanner.nextLine();
+
+            System.out.print("Enter Region Abbreviation: ");
+            String regionAbbr = scanner.nextLine();
+
+            System.out.print("Enter City: ");
+            String city = scanner.nextLine();
+
+            System.out.print("Enter ICAO Code: ");
+            String ICAO = scanner.nextLine();
+
+            System.out.print("Enter IATA Code: ");
+            String iataCode = scanner.nextLine();
+
+            System.out.print("Enter Fuel Types (1 for JUST AVGAS, 2 for JUST Jet A, and 3 for both): ");
+            Double fuelTypes = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
+            Airport newAirport = new Airport(airportID, airportName, latitude, longitude, elevation, radioFrequencies, regionState, regionAbbr, city, ICAO, iataCode, fuelTypes);
             airports.add(newAirport);
             saveAirports();
             System.out.println("Airport added successfully!");
@@ -57,7 +85,7 @@ public class AirportManager {
             Airport updatedAirport = (Airport) additionalParams[0];
             
             for (int i = 0; i < airports.size(); i++) {
-                if (airports.get(i).getICAOID().equals(ICAOID)) {
+                if (airports.get(i).getICAO().equals(ICAOID)) {
                     airports.set(i, updatedAirport);
                     break;
                 }
@@ -75,7 +103,7 @@ public class AirportManager {
                 // Display a batch of airports
                 for (int i = start; i < start + batchSize && i < airports.size(); i++) {
                     Airport airport = airports.get(i);
-                    System.out.println((i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAOID() + ")");
+                    System.out.println((i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAO() + ")");
                 }
     
                 System.out.print("Enter the number of the airport to modify, type 'more' to see more airports, or type 'search' to search by ICAOID: ");
@@ -101,23 +129,50 @@ public class AirportManager {
                     
                     // Inline functionality to modify airport details
                     // If the airport is found via search, it will ask for new details
+                    System.out.print("Enter new Airport ID (current: " + airport.getAirportID() + "): ");
+                    String airportID = scanner.nextLine();
+
                     System.out.print("Enter new Airport Name (current: " + airport.getAirportName() + "): ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter new ICAO ID (current: " + airport.getICAOID() + "): ");
-                    String newICAOID = scanner.nextLine();
+
                     System.out.print("Enter new Latitude (current: " + airport.getLatitude() + "): ");
                     double latitude = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+
                     System.out.print("Enter new Longitude (current: " + airport.getLongitude() + "): ");
                     double longitude = scanner.nextDouble();
                     scanner.nextLine(); // Consume newline
-                    System.out.print("Enter new Fuel Type (current: " + airport.getFuelTypes() + "): ");
-                    String fuelType = scanner.nextLine();
-                    System.out.print("Enter new Radio Frequency (current: " + airport.getRadioFrequencies() + "): ");
-                    String radioFrequencies = scanner.nextLine();
+
+                    System.out.print("Enter new Elevation (current: " + airport.getElevation() + "): ");
+                    double elevation = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+
+                    System.out.print("Enter new Radio Frequencies (current: " + airport.getRadioFrequencies() + "): ");
+                    Double radioFrequencies = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
+
+                    System.out.print("Enter new Region/State (current: " + airport.getRegionState() + "): ");
+                    String regionState = scanner.nextLine();
+
+                    System.out.print("Enter new Region Abbreviation (current: " + airport.getRegionAbbr() + "): ");
+                    String regionAbbr = scanner.nextLine();
+
+                    System.out.print("Enter new City (current: " + airport.getCity() + "): ");
+                    String city = scanner.nextLine();
+
+                    System.out.print("Enter new ICAO Code (current: " + airport.getICAO() + "): ");
+                    String newICAO = scanner.nextLine();
+
+                    System.out.print("Enter new IATA Code (current: " + airport.getIataCode() + "): ");
+                    String iataCode = scanner.nextLine();
+
+                    System.out.print("Enter new Fuel Types (current: " + airport.getFuelTypes() + "): ");
+                    Double fuelType = scanner.nextDouble();
+                    scanner.nextLine(); // Consume newline
     
                     // Updates the airport with new details
-                    Airport updatedAirport = new Airport(name, newICAOID, latitude, longitude, fuelType, radioFrequencies);
-                    modifyAirport(airport.getICAOID(), updatedAirport);
+                    Airport updatedAirport = new Airport(airportID, name, latitude, longitude, elevation, radioFrequencies, regionState, regionAbbr, city, newICAO, iataCode, fuelType);
+                    modifyAirport(airport.getICAO(), updatedAirport);
                     System.out.println("Airport modified successfully!");
                     
                     moreAirports = false; // Exit the loop after modification
@@ -134,23 +189,50 @@ public class AirportManager {
                         Airport airport = airports.get(index);
                         
                         // Inline functionality to modify airport details
+                        System.out.print("Enter new Airport ID (current: " + airport.getAirportID() + "): ");
+                        String airportID = scanner.nextLine();
+
                         System.out.print("Enter new Airport Name (current: " + airport.getAirportName() + "): ");
                         String name = scanner.nextLine();
-                        System.out.print("Enter new ICAO ID (current: " + airport.getICAOID() + "): ");
-                        String newICAOID = scanner.nextLine();
+
                         System.out.print("Enter new Latitude (current: " + airport.getLatitude() + "): ");
                         double latitude = scanner.nextDouble();
+                        scanner.nextLine(); // Consume newline
+
                         System.out.print("Enter new Longitude (current: " + airport.getLongitude() + "): ");
                         double longitude = scanner.nextDouble();
                         scanner.nextLine(); // Consume newline
-                        System.out.print("Enter new Fuel Type (current: " + airport.getFuelTypes() + "): ");
-                        String fuelType = scanner.nextLine();
-                        System.out.print("Enter new Radio Frequency (current: " + airport.getRadioFrequencies() + "): ");
-                        String radioFrequencies = scanner.nextLine();
-    
-                        // Creates a new Airport object with updated details
-                        Airport updatedAirport = new Airport(name, newICAOID, latitude, longitude, fuelType, radioFrequencies);
-                        modifyAirport(airport.getICAOID(), updatedAirport);
+
+                        System.out.print("Enter new Elevation (current: " + airport.getElevation() + "): ");
+                        double elevation = scanner.nextDouble();
+                        scanner.nextLine(); // Consume newline
+
+                        System.out.print("Enter new Radio Frequencies (current: " + airport.getRadioFrequencies() + "): ");
+                        Double radioFrequencies = scanner.nextDouble();
+                        scanner.nextLine(); // Consume newline
+
+                        System.out.print("Enter new Region/State (current: " + airport.getRegionState() + "): ");
+                        String regionState = scanner.nextLine();
+
+                        System.out.print("Enter new Region Abbreviation (current: " + airport.getRegionAbbr() + "): ");
+                        String regionAbbr = scanner.nextLine();
+
+                        System.out.print("Enter new City (current: " + airport.getCity() + "): ");
+                        String city = scanner.nextLine();
+
+                        System.out.print("Enter new ICAO Code (current: " + airport.getICAO() + "): ");
+                        String newICAO = scanner.nextLine();
+
+                        System.out.print("Enter new IATA Code (current: " + airport.getIataCode() + "): ");
+                        String iataCode = scanner.nextLine();
+
+                        System.out.print("Enter new Fuel Types (current: " + airport.getFuelTypes() + "): ");
+                        Double fuelType = scanner.nextDouble();
+                        scanner.nextLine(); // Consume newline
+                        
+                        // Updates the airport with new details
+                        Airport updatedAirport = new Airport(airportID, name, latitude, longitude, elevation, radioFrequencies, regionState, regionAbbr, city, newICAO, iataCode, fuelType);
+                        modifyAirport(airport.getICAO(), updatedAirport);
                         System.out.println("Airport modified successfully!");
                         
                         moreAirports = false; // Exit the loop after modification
@@ -183,12 +265,18 @@ public class AirportManager {
         }
 
         if (airport != null) {
-            System.out.println("\nAirport Name: " + airport.getAirportName());
-            System.out.println("ICAO ID: " + airport.getICAOID());
+            System.out.println("\nAirport ID: " + airport.getAirportID());
+            System.out.println("Airport Name: " + airport.getAirportName());
             System.out.println("Latitude: " + airport.getLatitude());
             System.out.println("Longitude: " + airport.getLongitude());
-            System.out.println("Fuel Types: " + airport.getFuelTypes());
+            System.out.println("Elevation: " + airport.getElevation());
             System.out.println("Radio Frequencies: " + airport.getRadioFrequencies());
+            System.out.println("Region/State: " + airport.getRegionState());
+            System.out.println("Region Abbreviation: " + airport.getRegionAbbr());
+            System.out.println("City: " + airport.getCity());
+            System.out.println("ICAO Code: " + airport.getICAO());
+            System.out.println("IATA Code: " + airport.getIataCode());
+            System.out.println("Fuel Types: " + airport.getFuelTypes());
         } else {
             System.out.println("Airport not found.");
         }
@@ -222,12 +310,18 @@ public class AirportManager {
 
             // Display results if found
             if (airport != null) {
-                System.out.println("\nAirport Name: " + airport.getAirportName());
-                System.out.println("ICAO ID: " + airport.getICAOID());
+                System.out.println("\nAirport ID: " + airport.getAirportID());
+                System.out.println("Airport Name: " + airport.getAirportName());
                 System.out.println("Latitude: " + airport.getLatitude());
                 System.out.println("Longitude: " + airport.getLongitude());
-                System.out.println("Fuel Types: " + airport.getFuelTypes());
+                System.out.println("Elevation: " + airport.getElevation());
                 System.out.println("Radio Frequencies: " + airport.getRadioFrequencies());
+                System.out.println("Region/State: " + airport.getRegionState());
+                System.out.println("Region Abbreviation: " + airport.getRegionAbbr());
+                System.out.println("City: " + airport.getCity());
+                System.out.println("ICAO Code: " + airport.getICAO());
+                System.out.println("IATA Code: " + airport.getIataCode());
+                System.out.println("Fuel Types: " + airport.getFuelTypes());
             } else {
                 System.out.println("Airport not found.");
             }
@@ -241,7 +335,7 @@ public class AirportManager {
             
             for (Airport airport : airports) {
                 if (isICAOID) {
-                    if (airport.getICAOID().equalsIgnoreCase(identifier)) {
+                    if (airport.getICAO().equalsIgnoreCase(identifier)) {
                         return airport;
                     }
                 } else {
@@ -279,7 +373,7 @@ public class AirportManager {
         }
         else if (scannerOrIcaoId instanceof String) {
             String ICAOID = (String) scannerOrIcaoId;
-            airports.removeIf(airport -> airport.getICAOID().equalsIgnoreCase(ICAOID));
+            airports.removeIf(airport -> airport.getICAO().equalsIgnoreCase(ICAOID));
             saveAirports();
         }
     } 
@@ -304,37 +398,83 @@ public class AirportManager {
     }
 
     // Getter for frequencies
-    public String getFrequencies(String ICAOID) {
+    public Double getFrequencies(String ICAOID) {
         Airport airport = searchAirport(ICAOID);
         return airport != null ? airport.getRadioFrequencies() : null;
     }
 
     // Loads airports from Airports.txt file
     private List<Airport> loadAirports() {
-        List<Airport> airports = new ArrayList<>();
+        List<Airport> loadedAirports = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
-            reader.readLine(); // Skip header line
+            boolean firstLine = true; // To skip header row
+            
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                airports.add(new Airport(data[0], data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]), data[4], data[5]));
+                // Skip header row
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
+                
+                // Skip comment lines or empty lines
+                if (line.trim().startsWith("//") || line.trim().isEmpty()) {
+                    continue;
+                }
+                
+                String[] parts = line.split(",");
+                if (parts.length >= 12) { // Make sure we have all fields
+                    try {
+                        String airportID = parts[0];
+                        String airportName = parts[1];
+                        Double latitude = Double.parseDouble(parts[2]);
+                        Double longitude = Double.parseDouble(parts[3]);
+                        Double elevation = Double.parseDouble(parts[4]);
+                        Double radioFrequencies = Double.parseDouble(parts[5]);
+                        String regionState = parts[6];
+                        String regionAbbr = parts[7];
+                        String city = parts[8];
+                        String ICAO = parts[9];
+                        String iataCode = parts[10];
+                        Double fuelTypes = Double.parseDouble(parts[11]);
+                        
+                        loadedAirports.add(new Airport(airportID, airportName, latitude, longitude, 
+                                                    elevation, radioFrequencies, regionState, 
+                                                    regionAbbr, city, ICAO, iataCode, fuelTypes));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error parsing number in line: " + line);
+                    }
+                }
             }
         } catch (IOException e) {
-            System.out.println("No existing airport data found.");
+            System.out.println("Error loading airports: " + e.getMessage());
         }
-        return airports;
+        return loadedAirports;
     }
 
     // Saves the airports to Airports.txt file
     private void saveAirports() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            writer.write("Airport Name, ICAO, Latitude, Longitude, Fuel Type, Frequency\n"); // Write header line
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, false))) { // false = overwrite file
+            // Write header row matching the CSV format
+            writer.println("Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_State,Region_Abbr.,City,ICAO,iata_code,Fuel Types");
+            
+            // Write airport data
             for (Airport airport : airports) {
-                writer.write(airport.getAirportName() + "," + airport.getICAOID() + "," + airport.getLatitude() + ","
-                        + airport.getLongitude() + "," + airport.getFuelTypes() + "," + airport.getRadioFrequencies() + "\n");
+                writer.println(airport.getAirportID() + "," +
+                              airport.getAirportName() + "," +
+                              airport.getLatitude() + "," +
+                              airport.getLongitude() + "," +
+                              airport.getElevation() + "," +
+                              airport.getRadioFrequencies() + "," +
+                              airport.getRegionState() + "," +
+                              airport.getRegionAbbr() + "," +
+                              airport.getCity() + "," +
+                              airport.getICAO() + "," +
+                              airport.getIataCode() + "," +
+                              airport.getFuelTypes());
             }
         } catch (IOException e) {
-            System.out.println("Error saving airport data.");
+            System.out.println("Error saving airports: " + e.getMessage());
         }
     }
 }
