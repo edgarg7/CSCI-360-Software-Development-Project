@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.List;
+
 /**
  * represents airports with attributes
  */
@@ -17,6 +20,7 @@ public class Airport {
 
     /**
      * Constructor for airport class
+     * @param radioType: The type of radio used at the airport
      * @param airportName: The name of the airport
      * @param ICAOID: The ICAO code of the airport
      * @param latitude: latitude coordinates of the airport
