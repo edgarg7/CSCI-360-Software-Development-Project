@@ -98,6 +98,7 @@ public class Main {
             System.out.println("6. Back to Main Menu");
             System.out.print("\nChoose an option: ");
 
+
             int choice = scanner.nextInt();
             scanner.nextLine();
 

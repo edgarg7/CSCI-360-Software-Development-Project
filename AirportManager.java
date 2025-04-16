@@ -492,21 +492,18 @@ public class AirportManager {
             saveAirports();
         }
     }
-
     // Loads airports from Airports.txt file
     private List<Airport> loadAirports() {
         List<Airport> loadedAirports = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             boolean firstLine = true; // To skip header row
-
             while ((line = reader.readLine()) != null) {
                 // Skip header row
                 if (firstLine) {
                     firstLine = false;
                     continue;
                 }
-
                 // Skip comment lines or empty lines
                 if (line.trim().startsWith("//") || line.trim().isEmpty()) {
                     continue;
@@ -524,8 +521,6 @@ public class AirportManager {
                         Double longitude = Double.parseDouble(parts[3]);
                         Double elevation = Double.parseDouble(parts[4]);
                         Double radioFrequencies = Double.parseDouble(parts[5]);
-
-                        // Parse the rest of the fields
                         String regionState = parts[6];
                         String regionAbbr = parts[7];
                         String city = parts[8];
