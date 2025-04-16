@@ -360,7 +360,7 @@ public class AirportManager {
                 }
             }
 
-            // I use a ArrayList becuase of the dynamic size of the list
+            // I use a ArrayList because of the dynamic size of the list
             List<Airport> matchingAirports = new ArrayList<>();
             String searchTerm = "";
             boolean searchByICAO = false;

@@ -16,7 +16,7 @@ public class Flight {
     private List<String> refuelStops;
 
     /**
-     * Construtor for this class
+     * Constructor for this class
      * @param startingAirport: the starting airport.
      * @param destinationAirport: the destination airport.
      * @param estimatedTime: Estimated time it will take to travel

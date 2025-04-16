@@ -1,3 +1,11 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "cSpell.words": [
+        "AVGAS",
+        "Beechcraft",
+        "Gulfstream",
+        "ICAOID",
+        "println",
+        "Skyhawk"
+    ]
 }

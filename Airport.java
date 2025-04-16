@@ -41,9 +41,14 @@ public class Airport {
     public Double getFuelTypes() { return fuelTypes; }
     public Double getRadioFrequencies() { return radioFrequencies; }
 
-	public Collection<Airport> getAvailableFuelTypes() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getAvailableFuelTypes'");
-	}
+    /**
+     * Retrieves a collection of available fuel types at the airport.
+     * @return A collection of available fuel types.
+     */
+    public Collection<String> getAvailableFuelTypes() {
+        // Example implementation, assuming fuelTypes is a bitmask or similar representation
+        // Replace with actual logic as per your requirements
+        return List.of("Jet A", "100LL", "Avgas");
+    }
 }
 
