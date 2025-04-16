@@ -14,7 +14,7 @@ public class Airport {
     private String ICAO;
     private String iataCode;
     private Double fuelTypes;
-    
+
     /**
      * Constructor for airport class
      * @param airportName: The name of the airport
@@ -25,11 +25,10 @@ public class Airport {
      * @param radioFrequencies: radio frequency used at airport
      */
     public Airport(String airportID, String airportName, Double latitude, Double longitude, Double elevation, Double radioFrequencies, String regionState, String regionAbbr, String city, String ICAO, String iataCode, Double fuelTypes) {
-        this.airportID = airportID;
         this.airportName = airportName;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.elevation = elevation; 
+        this.elevation = elevation;
         this.radioFrequencies = radioFrequencies;
         this.regionState = regionState;
         this.regionAbbr = regionAbbr;
@@ -40,17 +39,27 @@ public class Airport {
     }
 
     //Getter methods
-    public String getAirportName() { return airportName; }
-    public String getAirportID() { return airportID; }
-    public Double getLatitude() { return latitude; }
-    public Double getLongitude() { return longitude; }
-    public Double getElevation() { return elevation; }
-    public Double getRadioFrequencies() { return radioFrequencies; }
-    public String getRegionState() { return regionState; }
-    public String getRegionAbbr() { return regionAbbr; }
-    public String getCity() { return city; }
-    public String getICAO() { return ICAO; }
-    public String getIataCode() { return iataCode; }
-    public Double getFuelTypes() { return fuelTypes; }
+    public String getAirportName() {return airportName;}
+    public String getAirportID() {return airportID;}
+    public Double getLatitude() {return latitude;}
+    public Double getLongitude() {return longitude;}
+    public Double getElevation() {return elevation;}
+    public Double getRadioFrequencies() {return radioFrequencies;}
+    public String getRegionState() {return regionState;}
+    public String getRegionAbbr() {return regionAbbr;}
+    public String getCity() {return city;}
+    public String getICAO() {return ICAO;}
+    public String getIataCode() {return iataCode;}
+    public Double getFuelTypes() {return fuelTypes;}
+
+    /**
+     * Retrieves a collection of available fuel types at the airport.
+     * @return A collection of available fuel types.
+     */
+    public Collection<String> getAvailableFuelTypes() {
+        // Example implementation, assuming fuelTypes is a bitmask or similar representation
+        // Replace with actual logic as per your requirements
+        return List.of("Jet A", "100LL", "Avgas");
+    }
 }
 
