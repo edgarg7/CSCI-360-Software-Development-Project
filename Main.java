@@ -130,7 +130,7 @@ public class Main {
         System.out.println("\nAvailable Airports:");
         List<Airport> airports = airportManager.getAirports();
         for (int i = 0; i < airports.size(); i++) {
-            System.out.printf("%d. %s (%s)\n", i + 1, airports.get(i).getAirportName(), airports.get(i).getICAOID());
+            System.out.printf("%d. %s (%s)\n", i + 1, airports.get(i).getAirportName(), airports.get(i).getICAO());
         }
         System.out.print("Select start airport (number): ");
         int startIdx = scanner.nextInt() - 1;
@@ -138,7 +138,7 @@ public class Main {
         System.out.println("\nAvailable Destination Airports:");
         for (int i = 0; i < airports.size(); i++) {
             if (i != startIdx) {
-                System.out.printf("%d. %s (%s)\n", i + 1, airports.get(i).getAirportName(), airports.get(i).getICAOID());
+                System.out.printf("%d. %s (%s)\n", i + 1, airports.get(i).getAirportName(), airports.get(i).getICAO());
             }
         }
         System.out.print("Select destination airport (number): ");

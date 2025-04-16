@@ -12,7 +12,7 @@ public class Flight {
     private double distance;
     private double fuelNeeded;
     private double heading;
-    private String destinationCOM;
+    private double destinationCOM;
     private List<String> refuelStops;
 
     /**
@@ -49,6 +49,11 @@ public class Flight {
         this.destinationCOM = destinationCOM;
         this.refuelStops = refuelStops;
     }
+
+    public Flight(String startingAirport2, String destinationAirport2, double estimatedTime2, double distance2,
+            double fuelNeeded2, double heading2, String destinationCOM2, List<Object> of) {
+            }
+        //  {Auto-generated constructor stub}
 
     /**
      * Display all flight details and include refueling stops if necessary.
@@ -102,8 +107,8 @@ public void setHeading(double heading) {
 	this.heading = heading;
 }
 
-public String getDestinationCOM() { return destinationCOM; }
-public void setDestinationCOM(String destinationCOM) { this.destinationCOM = destinationCOM; }
+public Double getDestinationCOM() { return destinationCOM; }
+public void setDestinationCOM(double destinationCOM) { this.destinationCOM = destinationCOM; }
 
 public List<String> getRefuelStops() { return refuelStops; }
 public void setRefuelStops(List<String> refuelStops) { this.refuelStops = refuelStops; }
