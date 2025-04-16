@@ -39,7 +39,7 @@ public class Flight {
      * Constructor to initialize a flight that has refueling stops.
      */
 
-    public Flight(String startingAirport, String destinationAirport, double estimatedTime, double distance, double fuelNeeded, double heading, String destinationCOM, List<String> refuelStops) {
+    public Flight(String startingAirport, String destinationAirport, double estimatedTime, double distance, double fuelNeeded, double heading, Double destinationCOM, List<String> refuelStops) {
         this.startingAirport = startingAirport;
         this.destinationAirport = destinationAirport;
         this.estimatedTime = estimatedTime;
