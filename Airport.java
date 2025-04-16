@@ -5,12 +5,18 @@ import java.util.List;
  * represents airports with attributes
  */
 public class Airport {
+    private String airportID;
     private String airportName;
-    private String ICAOID;
-    private double latitude;
-    private double longitude;
-    private String fuelTypes;
-    private String radioFrequencies;
+    private Double latitude;
+    private Double longitude;
+    private Double elevation;
+    private Double radioFrequencies;
+    private String regionState;
+    private String regionAbbr;
+    private String city;
+    private String ICAO;
+    private String iataCode;
+    private Double fuelTypes;
     
     /**
      * Constructor for airport class
@@ -21,13 +27,19 @@ public class Airport {
      * @param fuelTypes: fuel types available at airport
      * @param radioFrequencies: radio frequency used at airport
      */
-    public Airport(String airportName, String ICAOID, double latitude, double longitude, String fuelTypes, String radioFrequencies) {
+    public Airport(String airportID, String airportName, Double latitude, Double longitude, Double elevation, Double radioFrequencies, String regionState, String regionAbbr, String city, String ICAO, String iataCode, Double fuelTypes) {
+        this.airportID = airportID;
         this.airportName = airportName;
-        this.ICAOID = ICAOID;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.fuelTypes = fuelTypes;
+        this.elevation = elevation; 
         this.radioFrequencies = radioFrequencies;
+        this.regionState = regionState;
+        this.regionAbbr = regionAbbr;
+        this.city = city;
+        this.ICAO = ICAO;
+        this.iataCode = iataCode;
+        this.fuelTypes = fuelTypes;
     }
 
     //Getter methods
@@ -37,15 +49,5 @@ public class Airport {
     public double getLongitude() { return longitude; }
     public String getFuelTypes() { return fuelTypes; }
     public String getRadioFrequencies() { return radioFrequencies; }
-    
-    // Setter method for radio frequencies
-    public void setRadioFrequencies(String radioFrequencies) {
-        this.radioFrequencies = radioFrequencies;
-    }
-
-    // Method to get available fuel types as a collection
-    public Collection<String> getAvailableFuelTypes() {
-        return List.of(fuelTypes.split(","));
-    }
 }
 
