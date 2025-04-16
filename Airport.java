@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.List;
+
 /**
  * represents airports with attributes
  */
@@ -34,5 +37,15 @@ public class Airport {
     public double getLongitude() { return longitude; }
     public String getFuelTypes() { return fuelTypes; }
     public String getRadioFrequencies() { return radioFrequencies; }
+    
+    // Setter method for radio frequencies
+    public void setRadioFrequencies(String radioFrequencies) {
+        this.radioFrequencies = radioFrequencies;
+    }
+
+    // Method to get available fuel types as a collection
+    public Collection<String> getAvailableFuelTypes() {
+        return List.of(fuelTypes.split(","));
+    }
 }
 
