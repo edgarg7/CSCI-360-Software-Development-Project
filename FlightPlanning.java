@@ -25,8 +25,8 @@ public class FlightPlanning {
                 refuelStops.add(refuelAirport.getAirportName());
             }
         }
-
-        return new Flight(start.getAirportName(), destination.getAirportName(), estimatedTime, distance, fuelNeeded, heading, destination.getRadioFrequencies(), refuelStops);
+new Flight(start.getAirportName(), destination.getAirportName(), estimatedTime, distance, fuelNeeded, heading, destination.getRadioFrequencies(), refuelStops);
+        return null ;
     }
 
     // Validate inputs to ensure no null values
