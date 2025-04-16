@@ -296,7 +296,7 @@ public class AirportManager {
             // If we receive a Scanner, search for the airport first
             System.out.println("\n[[--Airport Search--]]");
             Scanner scanner = (Scanner) param;
-            airport = searchAirport(scanner);
+            airport = searchAirport(scanner, true);
         } else if (param instanceof Airport) {
             // If we receive an Airport object directly, use that
             airport = (Airport) param;
