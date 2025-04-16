@@ -20,18 +20,26 @@ public class AirportManager {
         return airports;
     }
 
-    // Adds an airport to Airports.txt file
+    /*
+     * addAirport provides two functionalities:
+     * 1. Directly add an Airport object to the list.
+     * 2. Interactively collect airport details from the user via a Scanner object.
+     * 
+     * @param airportOrScanner - Either an Airpoort object or a Scanner for user input.
+     */
     public void addAirport(Object airportOrScanner) {
-        // Directly add an airport object
+        // Case 1: If we receive an Airport object directly, add it to the list and save the file. 
         if (airportOrScanner instanceof Airport) {
             Airport airport = (Airport) airportOrScanner;
             airports.add(airport);
             saveAirports();
-        } // If there is an instance of a scanner (user input) this method will be called
+        } 
+        // Case 2: If we receive a Scanner object, we will prompt the user for input.
         else if (airportOrScanner instanceof Scanner) {
             Scanner scanner = (Scanner) airportOrScanner;
             try {
                 // Collect string inputs
+                // Each call to getStringInput will prompt the user and validate non-empty input using the handler method.
                 System.out.println();
                 String airportID = getStringInput(scanner, "Enter Airport ID: ");
                 String airportName = getStringInput(scanner, "Enter Airport Name: ");
@@ -41,18 +49,25 @@ public class AirportManager {
                 String ICAO = getStringInput(scanner, "Enter ICAO Code: ");
                 String iataCode = getStringInput(scanner, "Enter IATA Code: ");
 
-                // Check if ICAO already exists
+                // Check if ICAO already exists.
                 for (Airport existingAirport : airports) {
                     if (existingAirport.getICAO().equalsIgnoreCase(ICAO)) {
                         throw new IllegalArgumentException("An airport with ICAO code " + ICAO + " already exists");
                     }
                 }
 
-                // Collect numeric inputs. Have a limit on latitude and longitude so they are not out of bounds
+                // Collect numeric inputs with validation of range.
+                // For latitude/longitude I added ranges to check if the user input is valid. Latitude is between -90 and 90, and Longitude is between -180 and 180.
                 double latitude = getDoubleInput(scanner, "Enter Latitude (-90 to 90): ", (double) -90, (double) 90);
                 double longitude = getDoubleInput(scanner, "Enter Longitude (-180 to 180): ", (double) -180, (double) 180);
-                double elevation = getDoubleInput(scanner, "Enter Elevation (in feet): ", null, null);
-                double radioFrequencies = getDoubleInput(scanner, "Enter Radio Frequencies: ", null, null);
+
+                // For elevation and radio frequencies I also added ranges. I crossrefferenced the values of elevation from the lowest and highest elevation of airports in the United States.
+                // I also checked the range of radio frequencies from the average radio frequencies of airports in the United States.
+                double elevation = getDoubleInput(scanner, "Enter Elevation (in feet): ", (double) -300, (double) 9500);
+                double radioFrequencies = getDoubleInput(scanner, "Enter Radio Frequencies: ", (double) 100, (double) 400);
+
+                // I wanted to use a numeric input for the fuel types, so I used a double to represent the fuel types. 
+                // This should make it easier to understand and use in the code.
                 double fuelTypes = getDoubleInput(scanner, "Enter Fuel Types (1=AVGAS, 2=Jet A, 3=both): ", (double) 1, (double) 3);
 
                 // Create a new airport object and add it to the list
@@ -71,7 +86,10 @@ public class AirportManager {
         }
     }
 
-    // Helper method for getting validated string input
+    /*
+     * This is the handler method for validation of the string inputs used in addAirport.
+     * If the input is empty, it throws an IllegalArgumentException.
+     */
     private String getStringInput(Scanner scanner, String prompt) {
         System.out.print(prompt);
         String input = scanner.nextLine().trim();
@@ -81,7 +99,12 @@ public class AirportManager {
         return input;
     }
 
-    // Helper method for getting validated numeric input
+    /*
+     * This is the handler method for validation of the numeric inputs used in addAirport.
+     * It checks if the input is a valid number and within the specified range.
+     * If the input is invalid, it prompts the user again.
+     * The method also ensures if the input can be parsed as a double.
+     */
     private double getDoubleInput(Scanner scanner, String prompt, Double min, Double max) {
         while (true) {
             try {
@@ -92,11 +115,11 @@ public class AirportManager {
                 // Check range if min and max are provided
                 if (min != null && value < min) {
                     System.out.println("Error: Value must be at least " + min);
-                    continue;
+                    continue; // Prompt again
                 }
                 if (max != null && value > max) {
                     System.out.println("Error: Value must be at most " + max);
-                    continue;
+                    continue; // Prompt again
                 }
 
                 return value;
@@ -106,13 +129,21 @@ public class AirportManager {
         }
     }
 
-    // Modifies an airport using user input
+    /*
+     * modifyAirport provides two functionalities:
+     * 1. Modification of a existing airport via ICAO 
+     * 2. Modificaiton of a existing airport via Scanner with text input.
+     * 
+     * @param param1 - Either a String (ICAO) or Scanner for user input.
+     * @param additionalParams - Optional Airport object for using programmatically.
+     */
     public void modifyAirport(Object param1, Object... additionalParams) {
-        // Direct modification via ICAO ID and updated Airport object
+        // Case 1: Programmatic modification.
         if (param1 instanceof String && additionalParams.length > 0 && additionalParams[0] instanceof Airport) {
             String ICAOID = (String) param1;
             Airport updatedAirport = (Airport) additionalParams[0];
 
+            // Find and replace the airport with matching ICAO.
             for (int i = 0; i < airports.size(); i++) {
                 if (airports.get(i).getICAO().equalsIgnoreCase(ICAOID)) {
                     airports.set(i, updatedAirport);
@@ -120,36 +151,42 @@ public class AirportManager {
                     break;
                 }
             }
-        } // Interactive modification via Scanner
+        } 
+        // Case 2: Interactive modification via UI.
         else if (param1 instanceof Scanner) {
             Scanner scanner = (Scanner) param1;
-            int start = 0;
-            int batchSize = 10;
-            boolean moreAirports = true;
+            int start = 0; // Starting index for displaying airports.
+            int batchSize = 10; // Number of airports to display at a time.
+            boolean moreAirports = true; // Flag to control the loop.
 
             while (moreAirports) {
-                // Display a batch of airports. Will display 10 at a time
+                // Display airports in batches for user selection.
+                // Shows airport name and ICAO code with index number.
                 for (int i = start; i < start + batchSize && i < airports.size(); i++) {
                     Airport airport = airports.get(i);
                     System.out.println("\n" + (i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAO() + ")");
                 }
 
-                // Prompt for the user to select an airport, display more airports, or search for a airport
+                // Prompt for the user to select an airport, display more airports, or search for a airport.
                 System.out.print("\nEnter the number of the airport to modify, type 'more' to see more airports, or type 'search' to search by ICAO: ");
                 String input = scanner.nextLine();
 
-                // If the user enters "more", show the next batch of airports
+                // If the user enters "more", show the next batch of airports.
                 if (input.equalsIgnoreCase("more")) {
                     if (start + batchSize >= airports.size()) {
+                        // End of list.
                         System.out.println("No more airports to show.");
                         continue;
                     }
-                    start += batchSize;
-                // If the user enters "search", prompt for ICAO code
+                    start += batchSize; // Move to the next page.
+
+                // If the user enters "search", prompt for ICAO code.
                 } else if (input.equalsIgnoreCase("search")) {
                     try {
+                        // Get ICAO to search with.
                         String ICAO = getStringInput(scanner, "Enter ICAO code to search: ");
 
+                        // Search for matching airport.
                         Airport foundAirport = null;
                         for (Airport airport : airports) {
                             if (airport.getICAO().equalsIgnoreCase(ICAO)) {
@@ -163,26 +200,29 @@ public class AirportManager {
                             continue;
                         }
 
+                        // Found airport, display details and modify.
                         modifyAirportDetails(scanner, foundAirport);
                         moreAirports = false;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
-                // If the user enters a number, modify that airport
+                
+                // If the user enters a number, parse the number and modify the corresponding airport.
                 } else {
                     try {
+                        // Convert input to an array index.
                         int index = Integer.parseInt(input) - 1;
 
-                        // Check if the index is valid
+                        // Check if the index is valid / within the bounds.
                         if (index < 0 || index >= airports.size()) {
                             System.out.println("Invalid selection");
                             continue;
                         }
 
-                        // Modify the selected airport
+                        // Modify the selected airport.
                         Airport airport = airports.get(index);
                         modifyAirportDetails(scanner, airport);
-                        moreAirports = false;
+                        moreAirports = false; // Exit the loop after modification.
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input. Please enter a number, 'more', or 'search'.");
                     }
@@ -191,21 +231,28 @@ public class AirportManager {
         }
     }
 
-    // Helper method to collect modified airport details
+    /* 
+     * Helper method that handles the detailed modification of an airport.
+     * Shows the current values and collects the new values from the user with validation.
+     * 
+     * @param scanner - Scanner for user input.
+     * @param airport - Airport object to be modified.
+     */
     private void modifyAirportDetails(Scanner scanner, Airport airport) {
         try {
-            // Collect string inputs with current values shown
+            // For each field, show the current value and collect new value (or keep the current).
+            // All string inputs use the helper method getStringInputWithDefault that supports keeping current value.
             String airportID = getStringInputWithDefault(scanner, "Enter new Airport ID (current: " + airport.getAirportID() + "): ", airport.getAirportID());
             String airportName = getStringInputWithDefault(scanner, "Enter new Airport Name (current: " + airport.getAirportName() + "): ", airport.getAirportName());
             String regionState = getStringInputWithDefault(scanner, "Enter new Region/State (current: " + airport.getRegionState() + "): ", airport.getRegionState());
             String regionAbbr = getStringInputWithDefault(scanner, "Enter new Region Abbreviation (current: " + airport.getRegionAbbr() + "): ", airport.getRegionAbbr());
             String city = getStringInputWithDefault(scanner, "Enter new City (current: " + airport.getCity() + "): ", airport.getCity());
 
-            // We need to handle the ICAO code specially to check for duplicates
+            // ICAO code requires special handling to check for duplicates.
             String ICAO = airport.getICAO(); // Store original ICAO
             String newICAO = getStringInputWithDefault(scanner, "Enter new ICAO Code (current: " + ICAO + "): ", ICAO);
 
-            // Check if the new ICAO is different and already exists
+            // If the ICAO changed, check for duplicates.
             if (!newICAO.equalsIgnoreCase(ICAO)) {
                 for (Airport existingAirport : airports) {
                     if (existingAirport != airport && existingAirport.getICAO().equalsIgnoreCase(newICAO)) {
@@ -216,7 +263,8 @@ public class AirportManager {
 
             String iataCode = getStringInputWithDefault(scanner, "Enter new IATA Code (current: " + airport.getIataCode() + "): ", airport.getIataCode());
 
-            // Collect numeric inputs with current values shown
+            // Numeric inputs with range validation.
+            // Shows current value and uses another helper method getDoubleInputWithDefault that supports keeping current value.
             double latitude = getDoubleInputWithDefault(scanner, "Enter new Latitude (-90 to 90) (current: " + airport.getLatitude() + "): ",
                     airport.getLatitude(), -90.0, 90.0);
             double longitude = getDoubleInputWithDefault(scanner, "Enter new Longitude (-180 to 180) (current: " + airport.getLongitude() + "): ",
@@ -228,12 +276,12 @@ public class AirportManager {
             double fuelTypes = getDoubleInputWithDefault(scanner, "Enter new Fuel Types (1=AVGAS, 2=Jet A, 3=both) (current: " + airport.getFuelTypes() + "): ",
                     airport.getFuelTypes(), 1.0, 3.0);
 
-            // Create new airport with updated details and update the collection
+            // Create new airport with updated details and update the collection.
             Airport updatedAirport = new Airport(airportID, airportName, latitude, longitude, elevation,
                     radioFrequencies, regionState, regionAbbr, city,
                     newICAO, iataCode, fuelTypes);
 
-            // Update the airport in the list
+            // Update the airport in the list.
             for (int i = 0; i < airports.size(); i++) {
                 if (airports.get(i).getICAO().equalsIgnoreCase(ICAO)) {
                     airports.set(i, updatedAirport);
@@ -241,6 +289,7 @@ public class AirportManager {
                 }
             }
 
+            // Save changes to the file.
             saveAirports();
             System.out.println("\nAirport updated successfully!");
 
@@ -250,14 +299,23 @@ public class AirportManager {
         }
     }
 
-    // Helper method for getting string input with a default value
+    /*
+     * Helper method for collecting string input that supports keeping the current value.
+     * Returns the default value if the user input is empty.
+     */
     private String getStringInputWithDefault(Scanner scanner, String prompt, String defaultValue) {
         System.out.print(prompt);
         String input = scanner.nextLine().trim();
         return input.isEmpty() ? defaultValue : input;
     }
 
-    // Helper method for getting numeric input with a default value
+    /*
+     * Helper method for collecting numeric input that supports keeping the existing value.
+     * - Returns the default value if the user input is empty.
+     * - Validates numeric format.
+     * - Uses range constraints if specified.
+     * - Will continue to prompt until a valid input is received.
+     */
     private double getDoubleInputWithDefault(Scanner scanner, String prompt, double defaultValue, Double min, Double max) {
         while (true) {
             try {
@@ -271,7 +329,7 @@ public class AirportManager {
 
                 double value = Double.parseDouble(input);
 
-                // Check range if min and max are provided
+                // Check range if min and max are provided.
                 if (min != null && value < min) {
                     System.out.println("Error: Value must be at least " + min);
                     continue;
@@ -288,20 +346,32 @@ public class AirportManager {
         }
     }
 
-    // Displays the airport information by ICAOID or name
+    /*
+     * Displays detailed information about an airport with two options:
+     * 1. Directly display details using an Airport object.
+     * 2. Search for an airport using a Scanner object.
+     * 
+     * @param param - Either a Airport object or a Scanner for user input.
+     */
     public void displayAirport(Object param) {
         Airport airport = null;
 
+        // Case 1: If we receive a Scanner, search for the airport first.
         if (param instanceof Scanner) {
-            // If we receive a Scanner, search for the airport first
+            // Start of the search process.
             System.out.println("\n[[--Airport Search--]]");
             Scanner scanner = (Scanner) param;
+
+            // Pass 'true' flag to searchAirport to indicate the call is from displayAirport.
+            // This will prevent display duplication of the airport details.
             airport = searchAirport(scanner, true);
+
+        // Case 2: Directly display the airport.
         } else if (param instanceof Airport) {
-            // If we receive an Airport object directly, use that
             airport = (Airport) param;
         }
 
+        // Display the airport details if found.
         if (airport != null) {
             System.out.println("\n[[--Airport Details--]]");
             System.out.println("Airport ID: " + airport.getAirportID());
@@ -316,7 +386,8 @@ public class AirportManager {
             System.out.println("ICAO Code: " + airport.getICAO());
             System.out.println("IATA Code: " + airport.getIataCode());
 
-            // Display fuel type in a more readable format
+            // Display fuel types with human-readable format.
+            // Converts numeric codes to text labels.
             String fuelTypeStr;
             double fuelTypes = airport.getFuelTypes();
             if (fuelTypes == 1.0) {
@@ -329,18 +400,32 @@ public class AirportManager {
                 fuelTypeStr = String.valueOf(fuelTypes);
             }
             System.out.println("Fuel Types: " + fuelTypeStr);
-        } else {
+        } 
+        // Handler for when no airport is found/provided.
+        else {
             System.out.println("No airport found to display.");
         }
     }
 
-    // Searches for an airport by ICAOID or name
+    /*
+     * Two search functionalities:
+     * 1. Interactive search via user input (Scanner).
+     * 2. Programmatic search by ICAO or name (String).
+     * 
+     * Also supports partial matching and handles multiple search results.
+     * 
+     * @param searchParam - Either a Sanner for interactive search or String for direct search
+     * @param additionalParams - Optional parameters for programmatic search:
+     *                        - Boolean: If true, it will indicate that a call is from displayAirport.
+     *                        - Boolean: If false when searchParam is a String, it will enable secondary search by name.
+     */
     public Airport searchAirport(Object searchParam, Object... additionalParams) {
-        // If there is an instance of a scanner (user input) this method will be called
+        // Case 1: Interactive search using Scanner. I made a 5 step process.
         if (searchParam instanceof Scanner) {
             Scanner scanner = (Scanner) searchParam;
 
-            // Use try-catch for numeric input validation
+            // Step 1: Get search mode from user (ICAO or name).
+            // Use validation to ensure the user enters a valid choice (1 or 2).
             int searchChoice = 0;
             boolean validChoice = false;
 
@@ -360,12 +445,12 @@ public class AirportManager {
                 }
             }
 
-            // I use a ArrayList becuase of the dynamic size of the list
-            List<Airport> matchingAirports = new ArrayList<>();
+            // Step 2: Initialize the search variables.
+            List<Airport> matchingAirports = new ArrayList<>(); // Dynamic collection for results.
             String searchTerm = "";
             boolean searchByICAO = false;
 
-            // Prompt for search term based on choice
+            // Step 3: Collect search term based upon the chosen search mode
             switch (searchChoice) {
                 case 1:
                     // Search by ICAO
@@ -379,62 +464,80 @@ public class AirportManager {
                     searchTerm = scanner.nextLine().trim().toLowerCase();
                     break;
                 default:
+                    // Invalid choice, should not reach here due to earlier validation.
                     System.out.println("Invalid choice. Please try again.");
                     return null;
             }
 
-            // Find all matching airports
+            // Step 4: Perform search with partial matching. 
             for (Airport airport : airports) {
                 if (searchByICAO) {
+                    // Case-insensitive, partial match for ICAO.
                     if (airport.getICAO().toUpperCase().contains(searchTerm)) {
                         matchingAirports.add(airport);
                     }
-                } else { // Search by name
+                } else {
+                    // Case-insensitive, partial match for Airport Name.
                     if (airport.getAirportName().toLowerCase().contains(searchTerm)) {
                         matchingAirports.add(airport);
                     }
                 }
             }
 
-            // Handle search results
+            // Step 5: Process search results based on number of matches.
+            // This can have multiple result "types".
+
+            // Type 1: No matches found.
             if (matchingAirports.isEmpty()) {
                 System.out.println("No airports found matching your search.");
                 return null;
-            } else if (matchingAirports.size() == 1) {
+            } 
+
+            // Type 2: One match found.
+            else if (matchingAirports.size() == 1) {
                 // Only one match found
                 Airport foundAirport = matchingAirports.get(0);
 
-                // If called from main menu (not from displayAirport), show the details
+                // Check if the search is called from displayAirport.
+                // The flag prevents duplicate display of airport details.
                 boolean calledFromDisplayAirport = false;
                 if (additionalParams.length > 0 && additionalParams[0] instanceof Boolean) {
                     calledFromDisplayAirport = (Boolean) additionalParams[0];
                 }
 
+                // Only display details here if it is NOT called from displayAirport.
                 if (!calledFromDisplayAirport) {
                     displayAirport(foundAirport);
                 }
 
                 return foundAirport;
-            } else {
-                // If there are multiple matches, display the list and ask for selection
+            } 
+            
+            // Type 3: Multiple matches found. 
+            else {
+                // Show list of matches with index numbers.
                 System.out.println("\nFound " + matchingAirports.size() + " matching airports:");
                 for (int i = 0; i < matchingAirports.size(); i++) {
                     Airport airport = matchingAirports.get(i);
                     System.out.println((i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAO() + ")");
                 }
 
+                // Prompt the user to select from the multiple results.
                 System.out.print("\nEnter the number of the airport to select: ");
                 try {
                     int selection = Integer.parseInt(scanner.nextLine().trim());
+
+                    // Validate selection range.
                     if (selection >= 1 && selection <= matchingAirports.size()) {
                         Airport selectedAirport = matchingAirports.get(selection - 1);
 
-                        // If called from main menu (not from displayAirport), show the details
+                        // Check if called from displayAirport.
                         boolean calledFromDisplayAirport = false;
                         if (additionalParams.length > 0 && additionalParams[0] instanceof Boolean) {
                             calledFromDisplayAirport = (Boolean) additionalParams[0];
                         }
 
+                        // Only display details here if it is NOT called from displayAirport.
                         if (!calledFromDisplayAirport) {
                             displayAirport(selectedAirport);
                         }
@@ -449,17 +552,20 @@ public class AirportManager {
                     return null;
                 }
             }
-        } // Original direct search implementation 
+        }
+        // Case 2: Programmatic search by String.
         else if (searchParam instanceof String) {
             String searchValue = (String) searchParam;
 
+            // Primary search by exact ICAO match (case-insensitve).
             for (Airport airport : airports) {
                 if (airport.getICAO().equalsIgnoreCase(searchValue)) {
                     return airport;
                 }
             }
 
-            // If no match by ICAO, try searching by name if specified
+            // Secondary search by exact Airport Name match (if enabled by flag).
+            // This will only run if the first program is false (or non-Boolean).
             if (additionalParams.length > 0 && additionalParams[0] instanceof Boolean && !(Boolean) additionalParams[0]) {
                 for (Airport airport : airports) {
                     if (airport.getAirportName().equalsIgnoreCase(searchValue)) {
@@ -469,46 +575,76 @@ public class AirportManager {
             }
         }
 
+        // If no match is found, return null.
         return null;
     }
 
+    /*
+     * Removes an airport with two functionalities:
+     * 1. Interactive removal with user confirmation.
+     * 2. Direct programmatic removal
+     * 
+     * @param scannerOrIcaoId - Either a Scanner for interactive removal or String ICAO ID
+     */
     public void removeAirport(Object scannerOrIcaoId) {
-        // Remove airport by ICAOID
+        // Case 1: Interactive removal using Scanner.
         if (scannerOrIcaoId instanceof Scanner) {
             Scanner scanner = (Scanner) scannerOrIcaoId;
             System.out.print("Enter ICAO ID of the airport to remove: ");
             String ICAOID = scanner.nextLine();
             Airport airport = searchAirport(ICAOID);
+            
             if (airport != null) {
-                // Call the same method with the ICAOID to actually remove it
-                removeAirport(ICAOID);
-                System.out.println("Airport removed successfully!");
+                // Display airport details so user knows what they're removing.
+                System.out.println("\nYou are about to remove the following airport:");
+                displayAirport(airport);
+                
+                // Ask for confirmation.
+                System.out.print("\nAre you sure you want to remove this airport? (Y/N): ");
+                String confirmation = scanner.nextLine().trim();
+                
+                if (confirmation.equalsIgnoreCase("Y")) {
+                    // Call same method with ICAOID to perform removal.
+                    removeAirport(ICAOID);
+                    System.out.println("\nAirport removed successfully!");
+                } else {
+                    System.out.println("\nAirport removal cancelled.");
+                }
             } else {
                 System.out.println("Airport not found.");
             }
-        } else if (scannerOrIcaoId instanceof String) {
+        } 
+        // Case 2: Programmatic removal using ICAO ID.
+        else if (scannerOrIcaoId instanceof String) {
             String ICAOID = (String) scannerOrIcaoId;
             airports.removeIf(airport -> airport.getICAO().equalsIgnoreCase(ICAOID));
             saveAirports();
         }
     }
-    // Loads airports from Airports.txt file
+    
+    /*
+     * Loads airport data from a CSV or text file. (Please DO NOT change "FILE_NAME", everything WILL BREAK.
+     *                                              If you need to change the file, please structure the same way as "Airport_Database.csv")
+     * Handles file parsing, data conversion, and basic validation
+     */
     private List<Airport> loadAirports() {
         List<Airport> loadedAirports = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
-            boolean firstLine = true; // To skip header row
+            boolean firstLine = true; // Flag to identify and skip header rows
             while ((line = reader.readLine()) != null) {
-                // Skip header row
+                // Skip CSV header row
                 if (firstLine) {
                     firstLine = false;
                     continue;
                 }
-                // Skip comment lines or empty lines
+                
+                // Skip comment lines or empty lines for better file reading.
                 if (line.trim().startsWith("//") || line.trim().isEmpty()) {
                     continue;
                 }
 
+                // Parse CSV format - Split line by comma separator.lklk
                 String[] parts = line.split(",");
                 if (parts.length >= 12) { // Make sure we have all fields
                     try {
@@ -521,6 +657,8 @@ public class AirportManager {
                         Double longitude = Double.parseDouble(parts[3]);
                         Double elevation = Double.parseDouble(parts[4]);
                         Double radioFrequencies = Double.parseDouble(parts[5]);
+
+                        // Parse the rest of the fields
                         String regionState = parts[6];
                         String regionAbbr = parts[7];
                         String city = parts[8];
@@ -543,29 +681,35 @@ public class AirportManager {
         return loadedAirports;
     }
 
-    // Saves the airports to Airports.txt file
+    /*
+     * Saves the airport data to a CSV or text file.
+     */
     private void saveAirports() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, false))) { // false = overwrite file
-            // Write header row matching the CSV format
+            // Write CSV header row with cloumn names for readability and data structure documentation
+            // This will help anyone who reads the file to understand the data structure.
             writer.println("Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_State,Region_Abbr.,City,ICAO,iata_code,Fuel Types");
 
-            // Write airport data
+            // Iterate through the collection and write each airport as a CSV row.
             for (Airport airport : airports) {
-                writer.println(airport.getAirportID() + ","
-                        + airport.getAirportName() + ","
-                        + airport.getLatitude() + ","
-                        + airport.getLongitude() + ","
-                        + airport.getElevation() + ","
-                        + airport.getRadioFrequencies() + ","
-                        + airport.getRegionState() + ","
-                        + airport.getRegionAbbr() + ","
-                        + airport.getCity() + ","
-                        + airport.getICAO() + ","
-                        + airport.getIataCode() + ","
-                        + airport.getFuelTypes());
+                writer.println(airport.getAirportID() + ","         // Unique identifier
+                        + airport.getAirportName() + ","            // Full name of the airport
+                        + airport.getLatitude() + ","               // Geographical latitude (North/South position)
+                        + airport.getLongitude() + ","              // Geographical longitude (East/West position)
+                        + airport.getElevation() + ","              // Height above sea level (in feet)
+                        + airport.getRadioFrequencies() + ","       // Communication frequencies (in MHz)
+                        + airport.getRegionState() + ","            // Region or state name
+                        + airport.getRegionAbbr() + ","             // Abbreviation of the region/state
+                        + airport.getCity() + ","                   // City where the airport is located
+                        + airport.getICAO() + ","                   // ICAO code (International Civil Aviation Organization)
+                        + airport.getIataCode() + ","               // IATA code (International Air Transport Association)
+                        + airport.getFuelTypes());                  // Fuel types available (1=AVGAS, 2=Jet A, 3=both)
             }
+            // File is automatically closed by try-with-resources.
         } catch (IOException e) {
+            // Log any file writing errors but allow the program to continue.
             System.out.println("Error saving airports: " + e.getMessage());
+            // NOTE: Data will remain even if the save fails.
         }
     }
 }
