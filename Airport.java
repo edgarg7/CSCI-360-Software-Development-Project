@@ -25,6 +25,7 @@ public class Airport {
      * @param radioFrequencies: radio frequency used at airport
      */
     public Airport(String airportID, String airportName, Double latitude, Double longitude, Double elevation, Double radioFrequencies, String regionState, String regionAbbr, String city, String ICAO, String iataCode, Double fuelTypes) {
+        this.airportID = airportID;
         this.airportName = airportName;
         this.latitude = latitude;
         this.longitude = longitude;
