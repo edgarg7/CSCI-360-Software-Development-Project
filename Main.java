@@ -13,13 +13,13 @@ public class Main {
         AirportManager airportManager = new AirportManager();
 
         while (true) {
-            System.out.println("\nFlight Planning System");
+            System.out.println("\n[[--Flight Planning System--]]\n");
             System.out.println("1. Airport Functions");
             System.out.println("2. Airplane Functions");
             System.out.println("3. Add Airplane");
             System.out.println("4. Plan a Flight");
             System.out.println("5. Exit");
-            System.out.print("Choose an option: ");
+            System.out.print("\nChoose an option: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -51,14 +51,14 @@ public class Main {
      */
     private static void airportFunctionsMenu(Scanner scanner, AirportManager airportManager) {
         while (true) {
-            System.out.println("\nAirport Functions");
+            System.out.println("\n[[--Airport Functions--]]\n");
             System.out.println("1. Add Airport");
             System.out.println("2. Modify Airport");
             System.out.println("3. Display Airport Information");
             System.out.println("4. Search Airport");
             System.out.println("5. Remove Airport");
             System.out.println("6. Back to Main Menu");
-            System.out.print("Choose an option: ");
+            System.out.print("\nChoose an option: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -89,14 +89,14 @@ public class Main {
 
     private static void airplaneFunctionsMenu (Scanner scanner, AirplaneManager airplaneManager) {
         while (true) {
-            System.out.println("\nAirplane Functions");
+            System.out.println("\n[[--Airplane Functions--]]\n");
             System.out.println("1. Add Airplane");
             System.out.println("2. Modify Airplane");
             System.out.println("3. Display Airplane Information");
             System.out.println("4. Search Airplane");
             System.out.println("5. Remove Airplane");
             System.out.println("6. Back to Main Menu");
-            System.out.print("Choose an option: ");
+            System.out.print("\nChoose an option: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();

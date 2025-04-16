@@ -38,7 +38,6 @@ Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_Stat
 3709,Minneapolis Saint Paul International Airport ,44.880081,-93.221741,841.0,115.3,Minnesota,MN,Minneapolis,KMSP,MSP,3.0
 3905,St. Louis Lambert International Airport,38.748697,-90.370003,618.0,116.45,Missouri,MO,St Louis,KSTL,STL,3.0
 3668,Kansas City International Airport,39.2976,-94.713898,1026.0,113.25,Missouri,MO,Kansas City,KMCI,MCI,3.0
-3751,Eppley Airfield,41.3032,-95.894096,984.0,116.3,Nebraska,NE,Omaha,KOMA,OMA,3.0
 3631,Harry Reid International Airport,36.083361,-115.151817,2181.0,116.9,Nevada,NV,Las Vegas,KLAS,LAS,3.0
 3853,Reno Tahoe International Airport,39.4991,-119.767998,4415.0,117.9,Nevada,NV,Reno,KRNO,RNO,3.0
 3521,Newark Liberty International Airport,40.692501,-74.168701,18.0,113.75,New Jersey,NJ,Newark,KEWR,EWR,3.0
@@ -69,4 +68,5 @@ Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_Stat
 3847,Richmond International Airport,37.505199,-77.319702,167.0,114.1,Virginia,VA,Richmond,KRIC,RIC,3.0
 3875,Seattle Tacoma International Airport,47.447943,-122.310276,433.0,116.8,Washington,WA,Seattle,KSEA,SEA,3.0
 3690,General Mitchell International Airport,42.947201,-87.896599,723.0,115.65,Wisconsin,WI,Milwaukee,KMKE,MKE,3.0
-900,MOD2,9.0,9.0,9.0,9.0,MOD2,MOD2,MOD2,MOD2,MOD2,3.0
+ID2,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO2,IATA2,2.0
+ID3,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO3,IATA2,2.0
