@@ -70,3 +70,4 @@ Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_Stat
 3690,General Mitchell International Airport,42.947201,-87.896599,723.0,115.65,Wisconsin,WI,Milwaukee,KMKE,MKE,3.0
 ID2,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO2,IATA2,2.0
 ID3,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO3,IATA2,2.0
+21,TEst,10.0,10.0,10.0,10.0,test,test,tes,tes,test,1.0
