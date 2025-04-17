@@ -270,7 +270,7 @@ public class AirplaneManager {
             double fuelType = getDoubleInputWithDefault(scanner, "Enter new Fuel Type (1=AVGAS, 2=JetA) (current: " + 
                     airplane.getFuelType() + "): ", airplane.getFuelType(), 1.0, 2.0); 
             double fuelBurnRate = getDoubleInputWithDefault(scanner, "Enter new Fuel Burn Rate (liters per hour) (current: " + 
-                    airplane.getFuelBurnRate() + "): ", airplane.getFuelBurnRate(), 0.0, 24000.0);
+                    airplane.getFuelBurnRate() + "): ", airplane.getFuelBurnRate(), (double) 1, 24000.0);
             double fuelCapacity = getDoubleInputWithDefault(scanner, "Enter new Fuel Capacity (in liters) (current: " + 
                     airplane.getFuelCapacity() + "): ", airplane.getFuelCapacity(), 150.0, 375000.0);
             double airspeed = getDoubleInputWithDefault(scanner, "Enter new Airspeed (in knots) (current: " + 
@@ -403,7 +403,19 @@ public class AirplaneManager {
             System.out.println("\n[[--Airplane Details--]]");
             System.out.println("Make and Model: " + airplane.getMakeModel());
             System.out.println("Plane Type: " + airplane.getPlaneType());
-            System.out.println("Fuel Type: " + airplane.getFuelType());
+            
+            // Convert numeric fuel type to human-readable format
+            String fuelTypeStr = "";
+            double fuelTypeValue = airplane.getFuelType();
+            if (fuelTypeValue == 1.0) {
+                fuelTypeStr = "AVGAS";
+            } else if (fuelTypeValue == 2.0) {
+                fuelTypeStr = "JetA";
+            } else {
+                fuelTypeStr = String.valueOf(fuelTypeValue); // Fallback for unknown values
+            }
+            System.out.println("Fuel Type: " + fuelTypeStr);
+            
             System.out.println("Fuel Burn Rate: " + airplane.getFuelBurnRate() + " liters per hour");
             System.out.println("Fuel Capacity: " + airplane.getFuelCapacity() + " liters");
             System.out.println("Airspeed: " + airplane.getAirspeed() + " knots");

@@ -8,6 +8,15 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
+        // Display warning message at startup
+        System.out.println("\n*************************************************");
+        System.out.println("*                   WARNING                     *");
+        System.out.println("*                                               *");
+        System.out.println("* THIS SOFTWARE IS NOT TO BE USED FOR FLIGHT    *");
+        System.out.println("* PLANNING OR NAVIGATIONAL PURPOSE              *");
+        System.out.println("*                                               *");
+        System.out.println("*************************************************\n");
+
         Scanner scanner = new Scanner(System.in);
         AirplaneManager airplaneManager = new AirplaneManager();
         AirportManager airportManager = new AirportManager();
