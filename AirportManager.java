@@ -72,7 +72,7 @@ public class AirportManager {
                         ICAO, fuelTypes);
                 airports.add(newAirport);
                 saveAirports();
-                System.out.println("Airport added successfully!");
+                System.out.println("\nAirport added successfully!");
 
             // Handle exceptions for invalid input
             } catch (IllegalArgumentException e) {
