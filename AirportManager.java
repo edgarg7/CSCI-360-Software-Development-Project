@@ -41,13 +41,11 @@ public class AirportManager {
                 // Collect string inputs
                 // Each call to getStringInput will prompt the user and validate non-empty input using the handler method.
                 System.out.println();
-                String airportID = getStringInput(scanner, "Enter Airport ID: ");
                 String airportName = getStringInput(scanner, "Enter Airport Name: ");
                 String regionState = getStringInput(scanner, "Enter Region/State: ");
                 String regionAbbr = getStringInput(scanner, "Enter Region Abbreviation: ");
                 String city = getStringInput(scanner, "Enter City: ");
                 String ICAO = getStringInput(scanner, "Enter ICAO Code: ");
-                String iataCode = getStringInput(scanner, "Enter IATA Code: ");
 
                 // Check if ICAO already exists.
                 for (Airport existingAirport : airports) {
@@ -61,9 +59,7 @@ public class AirportManager {
                 double latitude = getDoubleInput(scanner, "Enter Latitude (-90 to 90): ", (double) -90, (double) 90);
                 double longitude = getDoubleInput(scanner, "Enter Longitude (-180 to 180): ", (double) -180, (double) 180);
 
-                // For elevation and radio frequencies I also added ranges. I crossrefferenced the values of elevation from the lowest and highest elevation of airports in the United States.
                 // I also checked the range of radio frequencies from the average radio frequencies of airports in the United States.
-                double elevation = getDoubleInput(scanner, "Enter Elevation (in feet): ", (double) -300, (double) 9500);
                 double radioFrequencies = getDoubleInput(scanner, "Enter Radio Frequencies: ", (double) 100, (double) 400);
 
                 // I wanted to use a numeric input for the fuel types, so I used a double to represent the fuel types. 
@@ -71,9 +67,9 @@ public class AirportManager {
                 double fuelTypes = getDoubleInput(scanner, "Enter Fuel Types (1=AVGAS, 2=Jet A, 3=both): ", (double) 1, (double) 3);
 
                 // Create a new airport object and add it to the list
-                Airport newAirport = new Airport(airportID, airportName, latitude, longitude, elevation,
+                Airport newAirport = new Airport(airportName, latitude, longitude,
                         radioFrequencies, regionState, regionAbbr, city,
-                        ICAO, iataCode, fuelTypes);
+                        ICAO, fuelTypes);
                 airports.add(newAirport);
                 saveAirports();
                 System.out.println("Airport added successfully!");
@@ -242,7 +238,6 @@ public class AirportManager {
         try {
             // For each field, show the current value and collect new value (or keep the current).
             // All string inputs use the helper method getStringInputWithDefault that supports keeping current value.
-            String airportID = getStringInputWithDefault(scanner, "Enter new Airport ID (current: " + airport.getAirportID() + "): ", airport.getAirportID());
             String airportName = getStringInputWithDefault(scanner, "Enter new Airport Name (current: " + airport.getAirportName() + "): ", airport.getAirportName());
             String regionState = getStringInputWithDefault(scanner, "Enter new Region/State (current: " + airport.getRegionState() + "): ", airport.getRegionState());
             String regionAbbr = getStringInputWithDefault(scanner, "Enter new Region Abbreviation (current: " + airport.getRegionAbbr() + "): ", airport.getRegionAbbr());
@@ -261,25 +256,21 @@ public class AirportManager {
                 }
             }
 
-            String iataCode = getStringInputWithDefault(scanner, "Enter new IATA Code (current: " + airport.getIataCode() + "): ", airport.getIataCode());
-
             // Numeric inputs with range validation.
             // Shows current value and uses another helper method getDoubleInputWithDefault that supports keeping current value.
             double latitude = getDoubleInputWithDefault(scanner, "Enter new Latitude (-90 to 90) (current: " + airport.getLatitude() + "): ",
                     airport.getLatitude(), -90.0, 90.0);
             double longitude = getDoubleInputWithDefault(scanner, "Enter new Longitude (-180 to 180) (current: " + airport.getLongitude() + "): ",
                     airport.getLongitude(), -180.0, 180.0);
-            double elevation = getDoubleInputWithDefault(scanner, "Enter new Elevation (in feet) (current: " + airport.getElevation() + "): ",
-                    airport.getElevation(), null, null);
             double radioFrequencies = getDoubleInputWithDefault(scanner, "Enter new Radio Frequencies (current: " + airport.getRadioFrequencies() + "): ",
                     airport.getRadioFrequencies(), null, null);
             double fuelTypes = getDoubleInputWithDefault(scanner, "Enter new Fuel Types (1=AVGAS, 2=Jet A, 3=both) (current: " + airport.getFuelTypes() + "): ",
                     airport.getFuelTypes(), 1.0, 3.0);
 
             // Create new airport with updated details and update the collection.
-            Airport updatedAirport = new Airport(airportID, airportName, latitude, longitude, elevation,
+            Airport updatedAirport = new Airport(airportName, latitude, longitude,
                     radioFrequencies, regionState, regionAbbr, city,
-                    newICAO, iataCode, fuelTypes);
+                    newICAO, fuelTypes);
 
             // Update the airport in the list.
             for (int i = 0; i < airports.size(); i++) {
@@ -374,17 +365,14 @@ public class AirportManager {
         // Display the airport details if found.
         if (airport != null) {
             System.out.println("\n[[--Airport Details--]]");
-            System.out.println("Airport ID: " + airport.getAirportID());
             System.out.println("Airport Name: " + airport.getAirportName());
             System.out.println("Latitude: " + airport.getLatitude());
             System.out.println("Longitude: " + airport.getLongitude());
-            System.out.println("Elevation: " + airport.getElevation() + " ft");
             System.out.println("Radio Frequencies: " + airport.getRadioFrequencies());
             System.out.println("Region/State: " + airport.getRegionState());
             System.out.println("Region Abbreviation: " + airport.getRegionAbbr());
             System.out.println("City: " + airport.getCity());
             System.out.println("ICAO Code: " + airport.getICAO());
-            System.out.println("IATA Code: " + airport.getIataCode());
 
             // Display fuel types with human-readable format.
             // Converts numeric codes to text labels.
@@ -646,30 +634,26 @@ public class AirportManager {
 
                 // Parse CSV format - Split line by comma separator.lklk
                 String[] parts = line.split(",");
-                if (parts.length >= 12) { // Make sure we have all fields
+                if (parts.length >= 9) { // Make sure we have all fields
                     try {
                         // Parse for each field
-                        String airportID = parts[0];
-                        String airportName = parts[1];
+                        String airportName = parts[0];
 
                         // I use Double.parseDouble to convert from a string to double objects
-                        Double latitude = Double.parseDouble(parts[2]);
-                        Double longitude = Double.parseDouble(parts[3]);
-                        Double elevation = Double.parseDouble(parts[4]);
-                        Double radioFrequencies = Double.parseDouble(parts[5]);
+                        Double latitude = Double.parseDouble(parts[1]);
+                        Double longitude = Double.parseDouble(parts[2]);
+                        Double radioFrequencies = Double.parseDouble(parts[3]);
 
                         // Parse the rest of the fields
-                        String regionState = parts[6];
-                        String regionAbbr = parts[7];
-                        String city = parts[8];
-                        String ICAO = parts[9];
-                        String iataCode = parts[10];
-                        Double fuelTypes = Double.parseDouble(parts[11]);
+                        String regionState = parts[4];
+                        String regionAbbr = parts[5];
+                        String city = parts[6];
+                        String ICAO = parts[7];
+                        Double fuelTypes = Double.parseDouble(parts[8]);
 
                         // Create a new Airport object and add it to the list
-                        loadedAirports.add(new Airport(airportID, airportName, latitude, longitude,
-                                elevation, radioFrequencies, regionState,
-                                regionAbbr, city, ICAO, iataCode, fuelTypes));
+                        loadedAirports.add(new Airport(airportName, latitude, longitude, radioFrequencies, regionState,
+                                regionAbbr, city, ICAO, fuelTypes));
                     } catch (NumberFormatException e) {
                         System.out.println("Error parsing number in line: " + line);
                     }
@@ -688,21 +672,18 @@ public class AirportManager {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, false))) { // false = overwrite file
             // Write CSV header row with cloumn names for readability and data structure documentation
             // This will help anyone who reads the file to understand the data structure.
-            writer.println("Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_State,Region_Abbr.,City,ICAO,iata_code,Fuel Types");
+            writer.println("Airport Name,Latitude,Longitude,Frequency,Region_State,Region_Abbr.,City,ICAO,Fuel Types");
 
             // Iterate through the collection and write each airport as a CSV row.
             for (Airport airport : airports) {
-                writer.println(airport.getAirportID() + ","         // Unique identifier
-                        + airport.getAirportName() + ","            // Full name of the airport
+                writer.println(airport.getAirportName() + ","       // Full name of the airport
                         + airport.getLatitude() + ","               // Geographical latitude (North/South position)
                         + airport.getLongitude() + ","              // Geographical longitude (East/West position)
-                        + airport.getElevation() + ","              // Height above sea level (in feet)
                         + airport.getRadioFrequencies() + ","       // Communication frequencies (in MHz)
                         + airport.getRegionState() + ","            // Region or state name
                         + airport.getRegionAbbr() + ","             // Abbreviation of the region/state
                         + airport.getCity() + ","                   // City where the airport is located
                         + airport.getICAO() + ","                   // ICAO code (International Civil Aviation Organization)
-                        + airport.getIataCode() + ","               // IATA code (International Air Transport Association)
                         + airport.getFuelTypes());                  // Fuel types available (1=AVGAS, 2=Jet A, 3=both)
             }
             // File is automatically closed by try-with-resources.
