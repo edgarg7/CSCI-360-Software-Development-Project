@@ -85,14 +85,24 @@ public class AirportManager {
     /*
      * This is the handler method for validation of the string inputs used in addAirport.
      * If the input is empty, it throws an IllegalArgumentException.
+     * If the input contains only digits, it prompts the user to enter a valid string.
      */
     private String getStringInput(Scanner scanner, String prompt) {
-        System.out.print(prompt);
-        String input = scanner.nextLine().trim();
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("Input cannot be empty");
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                throw new IllegalArgumentException("Input cannot be empty.");
+            }
+            
+            // Check if input contains only digits
+            if (input.matches("^\\d+$")) {
+                System.out.println("Error: Input cannot contain only numbers for this field. Please try again.");
+                continue;
+            }
+            
+            return input;
         }
-        return input;
     }
 
     /*
@@ -293,11 +303,26 @@ public class AirportManager {
     /*
      * Helper method for collecting string input that supports keeping the current value.
      * Returns the default value if the user input is empty.
+     * Validates that the string input does not contain only digits.
      */
     private String getStringInputWithDefault(Scanner scanner, String prompt, String defaultValue) {
-        System.out.print(prompt);
-        String input = scanner.nextLine().trim();
-        return input.isEmpty() ? defaultValue : input;
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            
+            // Return default value if input is empty
+            if (input.isEmpty()) {
+                return defaultValue;
+            }
+            
+            // Check if input contains only digits
+            if (input.matches("^\\d+$")) {
+                System.out.println("Error: Input cannot contain only numbers for this field. Please try again.");
+                continue;
+            }
+            
+            return input;
+        }
     }
 
     /*
@@ -510,35 +535,40 @@ public class AirportManager {
                     System.out.println((i + 1) + ". " + airport.getAirportName() + " (" + airport.getICAO() + ")");
                 }
 
-                // Prompt the user to select from the multiple results.
-                System.out.print("\nEnter the number of the airport to select: ");
-                try {
-                    int selection = Integer.parseInt(scanner.nextLine().trim());
+                // Continuously prompt until valid selection is made
+                Airport selectedAirport = null;
+                boolean validSelection = false;
 
-                    // Validate selection range.
-                    if (selection >= 1 && selection <= matchingAirports.size()) {
-                        Airport selectedAirport = matchingAirports.get(selection - 1);
+                while (!validSelection) {
+                    // Prompt the user to select from the multiple results.
+                    System.out.print("\nEnter the number of the airport to select: ");
+                    try {
+                        int selection = Integer.parseInt(scanner.nextLine().trim());
 
-                        // Check if called from displayAirport.
-                        boolean calledFromDisplayAirport = false;
-                        if (additionalParams.length > 0 && additionalParams[0] instanceof Boolean) {
-                            calledFromDisplayAirport = (Boolean) additionalParams[0];
+                        // Validate selection range.
+                        if (selection >= 1 && selection <= matchingAirports.size()) {
+                            selectedAirport = matchingAirports.get(selection - 1);
+                            validSelection = true;
+                        } else {
+                            System.out.println("Invalid selection. Please enter a number between 1 and " + matchingAirports.size() + ".");
                         }
-
-                        // Only display details here if it is NOT called from displayAirport.
-                        if (!calledFromDisplayAirport) {
-                            displayAirport(selectedAirport);
-                        }
-
-                        return selectedAirport;
-                    } else {
-                        System.out.println("Invalid selection.");
-                        return null;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a number.");
-                    return null;
                 }
+
+                // Check if called from displayAirport.
+                boolean calledFromDisplayAirport = false;
+                if (additionalParams.length > 0 && additionalParams[0] instanceof Boolean) {
+                    calledFromDisplayAirport = (Boolean) additionalParams[0];
+                }
+
+                // Only display details here if it is NOT called from displayAirport.
+                if (!calledFromDisplayAirport) {
+                    displayAirport(selectedAirport);
+                }
+
+                return selectedAirport;
             }
         }
         // Case 2: Programmatic search by String.
