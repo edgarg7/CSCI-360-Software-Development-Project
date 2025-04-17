@@ -68,6 +68,5 @@ Airport ID,Airport Name,Latitude,Longitude,Elevation (Ft.),Frequency,Region_Stat
 3847,Richmond International Airport,37.505199,-77.319702,167.0,114.1,Virginia,VA,Richmond,KRIC,RIC,3.0
 3875,Seattle Tacoma International Airport,47.447943,-122.310276,433.0,116.8,Washington,WA,Seattle,KSEA,SEA,3.0
 3690,General Mitchell International Airport,42.947201,-87.896599,723.0,115.65,Wisconsin,WI,Milwaukee,KMKE,MKE,3.0
+ID2,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO2,IATA2,2.0
 ID3,NAME2,90.0,180.0,1000.0,200.0,REGION2,ABRR2,CITY2,ICAO3,IATA2,2.0
-21,TEst,10.0,10.0,10.0,10.0,test,test,tes,tes,test,1.0
-21,TEST,10.0,10.0,9000.0,100.0,TEST,TEST,TEST,DOUBLE,TEST,2.0
