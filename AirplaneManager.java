@@ -56,16 +56,15 @@ public class AirplaneManager {
                 
                 // Collect numeric inputs with validation
                 double fuelType = getDoubleInput(scanner, "Enter Fuel Type (1=AVGAS, 2=JetA): ", (double) 1, (double) 2);
-                double maxRange = getDoubleInput(scanner, "Enter Max Range (in miles): ", 0.0, null);
                 double fuelBurnRate = getDoubleInput(scanner, "Enter Fuel Burn Rate (liters per hour): ", (double) 0.0, (double) 24000);
                 double fuelCapacity = getDoubleInput(scanner, "Enter Fuel Capacity (in liters): ", (double) 150, (double) 375000);
                 double airspeed = getDoubleInput(scanner, "Enter Airspeed (in knots): ", (double) 8, (double) 600);
     
                 // Create a new airplane object and add it to the list
-                Airplane newAirplane = new Airplane(makeModel, planeType, fuelType, maxRange, fuelBurnRate, fuelCapacity, airspeed);
+                Airplane newAirplane = new Airplane(makeModel, planeType, fuelType, fuelBurnRate, fuelCapacity, airspeed);
                 airplanes.add(newAirplane);
                 saveAirplanes();
-                System.out.println("Airplane added successfully!");
+                System.out.println("\nAirplane added successfully!");
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
                 System.out.println("Airplane addition cancelled.");
@@ -269,9 +268,7 @@ public class AirplaneManager {
             // Numeric inputs with range validation
             // Shows current value and uses helper method getDoubleInputWithDefault that supports keeping current value
             double fuelType = getDoubleInputWithDefault(scanner, "Enter new Fuel Type (1=AVGAS, 2=JetA) (current: " + 
-                    airplane.getFuelType() + "): ", airplane.getFuelType(), 1.0, 2.0);
-            double maxRange = getDoubleInputWithDefault(scanner, "Enter new Max Range (in KM) (current: " + 
-                    airplane.getMaxRange() + "): ", airplane.getMaxRange(), 0.0, null);
+                    airplane.getFuelType() + "): ", airplane.getFuelType(), 1.0, 2.0); 
             double fuelBurnRate = getDoubleInputWithDefault(scanner, "Enter new Fuel Burn Rate (liters per hour) (current: " + 
                     airplane.getFuelBurnRate() + "): ", airplane.getFuelBurnRate(), 0.0, 24000.0);
             double fuelCapacity = getDoubleInputWithDefault(scanner, "Enter new Fuel Capacity (in liters) (current: " + 
@@ -280,8 +277,7 @@ public class AirplaneManager {
                     airplane.getAirspeed() + "): ", airplane.getAirspeed(), 8.0, 600.0);
 
             // Create new airplane with updated details
-            Airplane updatedAirplane = new Airplane(newMakeModel, planeType, fuelType, maxRange, 
-                    fuelBurnRate, fuelCapacity, airspeed);
+            Airplane updatedAirplane = new Airplane(newMakeModel, planeType, fuelType, fuelBurnRate, fuelCapacity, airspeed);
 
             // Update the airplane in the list
             for (int i = 0; i < airplanes.size(); i++) {
@@ -408,7 +404,6 @@ public class AirplaneManager {
             System.out.println("Make and Model: " + airplane.getMakeModel());
             System.out.println("Plane Type: " + airplane.getPlaneType());
             System.out.println("Fuel Type: " + airplane.getFuelType());
-            System.out.println("Max Range: " + airplane.getMaxRange() + " miles");
             System.out.println("Fuel Burn Rate: " + airplane.getFuelBurnRate() + " liters per hour");
             System.out.println("Fuel Capacity: " + airplane.getFuelCapacity() + " liters");
             System.out.println("Airspeed: " + airplane.getAirspeed() + " knots");
@@ -657,7 +652,7 @@ public class AirplaneManager {
 
                 // Parse CSV format - Split line by comma separator
                 String[] parts = line.split(",");
-                if (parts.length >= 7) { // Make sure we have all required fields
+                if (parts.length >= 6) { // Make sure we have all required fields
                     try {
                         // Parse each field
                         String makeModel = parts[0].trim();
@@ -665,14 +660,13 @@ public class AirplaneManager {
                         
                         // Parse numeric values
                         Double fuelType = Double.parseDouble(parts[2].trim());
-                        double maxRange = Double.parseDouble(parts[3].trim());
-                        double fuelBurnRate = Double.parseDouble(parts[4].trim());
-                        double fuelCapacity = Double.parseDouble(parts[5].trim());
-                        double airspeed = Double.parseDouble(parts[6].trim());
+                        double fuelBurnRate = Double.parseDouble(parts[3].trim());
+                        double fuelCapacity = Double.parseDouble(parts[4].trim());
+                        double airspeed = Double.parseDouble(parts[5].trim());
 
                         // Create a new Airplane object and add it to the list
                         loadedAirplanes.add(new Airplane(makeModel, planeType, fuelType, 
-                                                        maxRange, fuelBurnRate, fuelCapacity, airspeed));
+                                                        fuelBurnRate, fuelCapacity, airspeed));
                     } catch (NumberFormatException e) {
                         System.out.println("Error parsing number in line: " + line);
                     }
@@ -691,14 +685,13 @@ public class AirplaneManager {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, false))) { // false = overwrite file
             // Write CSV header row with column names for readability and data structure documentation
             // This will help anyone who reads the file to understand the data structure.
-            writer.println("Make and Model,Plane Type,Fuel Type,Max Range,Fuel Burn Rate,Fuel Capacity,Airspeed");
+            writer.println("Make and Model,Plane Type,Fuel Type,Fuel Burn Rate,Fuel Capacity,Airspeed");
 
             // Iterate through the collection and write each airplane as a CSV row.
             for (Airplane airplane : airplanes) {
                 writer.println(airplane.getMakeModel() + ","            // Make and model of the airplane
                         + airplane.getPlaneType() + ","                 // Type of airplane (Jet, Prop, TurboProp)
                         + airplane.getFuelType() + ","                  // Type of fuel used (1=AVGAS, 2=JetA)
-                        + airplane.getMaxRange() + ","                  // Maximum flying range in miles
                         + airplane.getFuelBurnRate() + ","              // Fuel consumption rate in liters per hour
                         + airplane.getFuelCapacity() + ","              // Total fuel capacity in liters
                         + airplane.getAirspeed());                      // Cruising airspeed in knots
