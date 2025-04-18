@@ -112,4 +112,23 @@ public void setDestinationCOM(double destinationCOM) { this.destinationCOM = des
 
 public List<String> getRefuelStops() { return refuelStops; }
 public void setRefuelStops(List<String> refuelStops) { this.refuelStops = refuelStops; }
+
+public String getFlightPlanDetails() {
+    StringBuilder details = new StringBuilder();
+    details.append("Flight Plan:\n");
+    details.append("Starting Airport: ").append(startingAirport).append("\n");
+    details.append("Destination Airport: ").append(destinationAirport).append("\n");
+    details.append(String.format("Estimated Time of Arrival: %.2f hours\n", estimatedTime));
+    details.append(String.format("Approximate Distance: %.2f miles\n", distance));
+    details.append(String.format("Fuel Needed: %.2f gallons\n", fuelNeeded));
+    details.append(String.format("Plane Heading: %.2f degrees\n", heading));
+    details.append("Destination Communication Frequency: ").append(destinationCOM).append("\n");
+    if (refuelStops != null && !refuelStops.isEmpty()) {
+        details.append("Refuel Stops:\n");
+        refuelStops.forEach(stop -> details.append(" - ").append(stop).append("\n"));
+    } else {
+        details.append("No refuel stops necessary.\n");
+    }
+    return details.toString();
+}
 }
