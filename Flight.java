@@ -70,10 +70,13 @@ public class Flight {
     	System.out.println("Destination Communication Frequency: " + destinationCOM);
         if (refuelStops != null && !refuelStops.isEmpty()) {
             System.out.println("Refuel Stops:");
-            refuelStops.forEach(stop -> System.out.println(" - " + stop));
+            for (int i = 0; i < refuelStops.size(); i++) {
+                System.out.println(" Stop " + (i + 1) + ": " + refuelStops.get(i));
+            }
         } else {
             System.out.println("No refuel stops necessary.");
         }
+              
     }
     
 // Getter and Setter methods

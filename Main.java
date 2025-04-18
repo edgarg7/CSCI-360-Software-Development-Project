@@ -162,7 +162,12 @@ public class Main {
         int planeIdx = scanner.nextInt() - 1;
         
         Flight flight = FlightPlanning.planFlight(airports.get(startIdx), airports.get(destIdx), airplanes.get(planeIdx), airports);
-        flight.displayFlightPlan();
+        if (flight != null) {
+            flight.displayFlightPlan();
+        } else {
+            System.out.println("Flight planning failed.");
+        }
+
     }
 }
 
