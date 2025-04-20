@@ -34,4 +34,9 @@ public class Airplane {
     public double getFuelBurnRate() { return fuelBurnRate; }
     public double getFuelCapacity() { return fuelCapacity; }
     public double getAirspeed() { return airspeed; }
+
+    public double getMaxRange(){
+        if(fuelBurnRate <= 0) return 0;
+        return (fuelCapacity / fuelBurnRate) * airspeed;
+    }
 }
